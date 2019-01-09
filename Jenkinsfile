@@ -4,22 +4,22 @@ pipeline {
 	 	label 'Slave_Induccion'
 	 }
 	
-	 //Opciones específicas de Pipeline dentro del Pipeline
+	 //Opciones especÃ­ficas de Pipeline dentro del Pipeline
 	 options {
-		//Mantener artefactos y salida de consola para el # específico de ejecuciones recientes del Pipeline.
+		//Mantener artefactos y salida de consola para el # especÃ­fico de ejecuciones recientes del Pipeline.
 		buildDiscarder(logRotator(numToKeepStr: '5'))
 		
 		//No permitir ejecuciones concurrentes de Pipeline
 		disableConcurrentBuilds()
 	 }
 	 
-	  //Una sección que define las herramientas para “autoinstalar” y poner en la PATH
+	  //Una secciÃ³n que define las herramientas para â€œautoinstalarâ€ y poner en la PATH
 	 tools {
-	 	jdk 'JDK8_Centos' //Preinstalada en la Configuración del Master
-		gradle 'Gradle4.5_Centos' //Preinstalada en la Configuración del Master
+	 	jdk 'JDK8_Centos' //Preinstalada en la ConfiguraciÃ³n del Master
+		gradle 'Gradle4.5_Centos' //Preinstalada en la ConfiguraciÃ³n del Master
 	 }
 	 
-	 //Aquí comienzan los “items” del Pipeline
+	 //AquÃ­ comienzan los â€œitemsâ€ del Pipeline
 	 stages{
 	 	stage('Checkout') {
 	 		steps{
@@ -40,6 +40,12 @@ pipeline {
 	 			}
 	 	}
 	 	
+	 	stage('Compile') {
+			steps{
+					echo "------------>Compile<------------"
+					sh 'gradle --b ./build.gradle compileJava'
+			}
+		}
 	
 		stage('Unit Tests') {
 			steps{
@@ -58,12 +64,9 @@ pipeline {
 	 
 	 	stage('Static Code Analysis') {
 	 		steps{
-		 			echo '------------>Análisis de código estático<------------'
+		 			echo '------------>AnÃ¡lisis de cÃ³digo estÃ¡tico<------------'
 		 			withSonarQubeEnv('Sonar') {
-						sh "${tool name: 'SonarScanner', 
-						type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-						}
-						/bin/sonar-scanner"
+					sh "${tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
 					}
 	 			}
 	 	}
@@ -71,7 +74,6 @@ pipeline {
 	 	stage('Build') {
 	 		steps {
 		 			echo "------------>Build<------------"
-					//Construir sin tarea test que se ejecutó previamente
 		 			sh 'gradle --b ./build.gradle build -x test'
 	 			}
 		}
