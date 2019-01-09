@@ -1,4 +1,5 @@
-pipeline {
+
+-pipeline {
  //Donde se va a ejecutar el Pipeline
 	 agent {
 	 	label 'Slave_Induccion'
