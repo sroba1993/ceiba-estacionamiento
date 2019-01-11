@@ -26,6 +26,26 @@ dependencies {
 	compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.5.1'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider
 	compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.2.3'	
+//jpa
+	// https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
+
+
+//hibernate
+	// https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.1.Final'
+	// https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+	compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.2.4.Final'
+	// https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
+	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
+	
+	// https://mvnrepository.com/artifact/javax.el/javax.el-api
+	compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
+	
+//conector j
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+
 }
 
 // In this section you declare where to find the dependencies of your project

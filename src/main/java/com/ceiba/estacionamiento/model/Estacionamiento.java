@@ -2,13 +2,13 @@ package com.ceiba.estacionamiento.model;
 
 public class Estacionamiento {
 	
-	private int cantParqueaderosMotos;
-	private int cantParqueaderosCarros;
+	private int cantPuestosMotos;
+	private int cantPuestosCarros;
 	private int tarifaHoraCarro;
 	private int tarifaHoraMoto;
 	private int tarifaDiaCarro;
 	private int tarifaDiaMoto;
-	private int excedenteCcMoto;
+	private int tarifaExcedenteCc;
 	
 	
 	public Estacionamiento() {
@@ -16,27 +16,27 @@ public class Estacionamiento {
 	}
 	
 	public boolean calcularPuestoLibreMoto() {
-		return cantParqueaderosMotos > 10 ;
+		return cantPuestosMotos > 10 ;
 	}
 	
 	public boolean calcularPuestoLibreCarro() {
-		return cantParqueaderosCarros > 20 ;
+		return cantPuestosCarros > 20 ;
 	}
 
 	public int getCantParqueaderosMotos() {
-		return cantParqueaderosMotos;
+		return cantPuestosMotos;
 	}
 
 	public void setCantParqueaderosMotos(int cantParqueaderosMotos) {
-		this.cantParqueaderosMotos = cantParqueaderosMotos;
+		this.cantPuestosMotos = cantParqueaderosMotos;
 	}
 
 	public int getCantParqueaderosCarros() {
-		return cantParqueaderosCarros;
+		return cantPuestosCarros;
 	}
 
 	public void setCantParqueaderosCarros(int cantParqueaderosCarros) {
-		this.cantParqueaderosCarros = cantParqueaderosCarros;
+		this.cantPuestosCarros = cantParqueaderosCarros;
 	}
 
 	public int getTarifaHoraCarro() {
@@ -72,11 +72,11 @@ public class Estacionamiento {
 	}
 
 	public int getExcedenteCcMoto() {
-		return excedenteCcMoto;
+		return tarifaExcedenteCc;
 	}
 
 	public void setExcedenteCcMoto(int excedenteCcMoto) {
-		this.excedenteCcMoto = excedenteCcMoto;
+		this.tarifaExcedenteCc = excedenteCcMoto;
 	}
 	
 }
