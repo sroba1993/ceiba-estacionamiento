@@ -10,6 +10,9 @@
 		<property name="hibernate.show_sql">true</property>
 		 
 		<mapping class="com.ceiba.estacionamiento.model.Vehiculo" />
+		<mapping class="com.ceiba.estacionamiento.model.Estacionamiento" />
+		<mapping class="com.ceiba.estacionamiento.model.ColillaEntrada" />
+		<mapping class="com.ceiba.estacionamiento.model.Factura" />
 		
 	</session-factory>
 </hibernate-configuration>

@@ -1,7 +1,18 @@
 package com.ceiba.estacionamiento.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Estacionamiento")
 public class Estacionamiento {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int idEstacionamiento;
 	private int cantPuestosMotos;
 	private int cantPuestosCarros;
 	private int tarifaHoraCarro;
@@ -10,11 +21,23 @@ public class Estacionamiento {
 	private int tarifaDiaMoto;
 	private int tarifaExcedenteCc;
 	
-	
 	public Estacionamiento() {
 
 	}
 	
+	public Estacionamiento(int cantPuestosMotos, int cantPuestosCarros, int tarifaHoraCarro, int tarifaHoraMoto,
+			int tarifaDiaCarro, int tarifaDiaMoto, int tarifaExcedenteCc) {
+		
+		this.cantPuestosMotos = cantPuestosMotos;
+		this.cantPuestosCarros = cantPuestosCarros;
+		this.tarifaHoraCarro = tarifaHoraCarro;
+		this.tarifaHoraMoto = tarifaHoraMoto;
+		this.tarifaDiaCarro = tarifaDiaCarro;
+		this.tarifaDiaMoto = tarifaDiaMoto;
+		this.tarifaExcedenteCc = tarifaExcedenteCc;
+	}
+
+
 	public boolean calcularPuestoLibreMoto() {
 		return cantPuestosMotos > 10 ;
 	}
