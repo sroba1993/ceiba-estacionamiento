@@ -9,7 +9,7 @@ import com.ceiba.estacionamiento.model.ColillaEntrada;
 import com.ceiba.estacionamiento.model.Estacionamiento;
 import com.ceiba.estacionamiento.model.Factura;
 import com.ceiba.estacionamiento.model.Vehiculo;
-import com.ceiba.estacionamiento.repository.HibernateUtil;
+import com.ceiba.estacionamiento.util.HibernateUtil;
 
 public class TestDB {
 

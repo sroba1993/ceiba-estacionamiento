@@ -1,4 +1,4 @@
-package com.ceiba.estacionamiento.repository;
+package com.ceiba.estacionamiento.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
