@@ -1,22 +1,19 @@
 package com.ceiba.estacionamiento;
 
-import java.util.Date;
-
-import org.hibernate.Session;
-import com.ceiba.estacionamiento.model.*;
-import com.ceiba.estacionamiento.repository.HibernateUtil;
-
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.hibernate.Session;
 
+import com.ceiba.estacionamiento.model.ColillaEntrada;
+import com.ceiba.estacionamiento.model.Factura;
+import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.HibernateUtil;
 
+public class TestDB {
 
-public class Test {
+	public TestDB() {
 
-	public Test() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
@@ -28,7 +25,7 @@ public class Test {
 		
 		Date date = new Date();
 		ColillaEntrada colillaEntrada = new ColillaEntrada("KHM20u",  new Timestamp(date.getTime()));
-		//Factura factura = new Factura(new Timestamp(date.getTime()) , new Timestamp(date.getTime()), new Timestamp(date.getTime()));
+		Factura factura = new Factura("QWL963",new Timestamp(date.getTime()) , new Timestamp(date.getTime()), "02:31:06");
 		
 		//salvar el objeto
 		session.save(vehiculo);
@@ -36,7 +33,7 @@ public class Test {
 		session.save(vehiculo2);
 		session.save(vehiculo3);
 	    session.save(colillaEntrada);
-		//session.save(factura);
+		session.save(factura);
 		
 		
 		session.getTransaction().commit();  //para realizar los cambios, siempre va de ultimo

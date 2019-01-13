@@ -13,7 +13,7 @@ public class Estacionamiento {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idEstacionamiento;
-	private Vehiculo vehiculo;
+	//private Vehiculo vehiculo;
 	private int cantPuestosMotos = 10;
 	private int cantPuestosCarros = 20;
 	
@@ -39,12 +39,6 @@ public class Estacionamiento {
 		}
 	}
 	
-	public Vehiculo getVehiculo() {
-		return vehiculo;
-	}
 
-	public void setVehiculo(Vehiculo vehiculo) {
-		this.vehiculo = vehiculo;
-	}
 
 }

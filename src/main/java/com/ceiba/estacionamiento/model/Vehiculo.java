@@ -11,6 +11,8 @@ import javax.persistence.Table;
 public class Vehiculo {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int idVehiculo;
 	private String placa;
 	private String tipoVehiculo;
 	private int cilindraje;

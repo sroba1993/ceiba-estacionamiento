@@ -18,19 +18,23 @@ public class Factura {
 	private String placa;
 	private Date fechaEntrada;
 	private Date fechaSalida;
-	private Date duracion; 
-	private int tarifaHoraMoto = 500;
-	private int tarifaDiaMoto = 4_000;
-	private int tarifaExcedenteCc = 2_000;
-	private int CcExcedente = 500;
-	private int tarifaHoraCarro = 1_000;
-	private int tarifaDiaCarro = 8_000;
+	private String duracion; 
+	private int totalPagar;
 	
 
 	public Factura() {
 
 	}
 	
+	
+	public Factura(String placa, Date fechaEntrada, Date fechaSalida, String duracion) {
+		this.placa = placa;
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.duracion = duracion;
+	}
+
+
 	public String getPlaca() {
 		return placa;
 	}
@@ -55,43 +59,51 @@ public class Factura {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public Date getDuracion() {
+	public String getDuracion() {
 		return duracion;
 	}
 
-	public void setDuracion(Date duracion) {
+	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
 	
 	public int calcularPrecioCarro(int cantidadHoras, int cantidadDias) {
-		int precioTotal;
+		
+		int tarifaHoraCarro = 1_000;
+		int tarifaDiaCarro = 8_000;
+		
 		if (cantidadDias > 0) {
-			precioTotal = cantidadDias * tarifaDiaCarro;
+			totalPagar = cantidadDias * tarifaDiaCarro;
 			if (cantidadHoras > 0) {
-				precioTotal += cantidadHoras * tarifaHoraCarro;
+				totalPagar += cantidadHoras * tarifaHoraCarro;
 			}
 		} 
 		else {
-			precioTotal = cantidadHoras * tarifaHoraCarro;
+			totalPagar = cantidadHoras * tarifaHoraCarro;
 		}
-		return precioTotal;
+		return totalPagar;
 	}
 	
 	public int calcularPrecioMoto(int cantidadHoras, int cantidadDias, int cilindraje) {
-		int precioTotal;
+		
+		int tarifaHoraMoto = 500;
+		int tarifaDiaMoto = 4_000;
+		int tarifaExcedenteCc = 2_000;
+		int CcExcedente = 500;
+		
 		if (cantidadDias > 0) {
-			precioTotal = cantidadDias * tarifaDiaMoto;
+			totalPagar = cantidadDias * tarifaDiaMoto;
 			if (cantidadHoras > 0) {
-				precioTotal += cantidadHoras * tarifaHoraMoto;
+				totalPagar += cantidadHoras * tarifaHoraMoto;
 			}
 		} 
 		else {
-			precioTotal = cantidadHoras * tarifaHoraMoto;
+			totalPagar = cantidadHoras * tarifaHoraMoto;
 		}
 		if (cilindraje > CcExcedente) {
-			precioTotal += tarifaExcedenteCc;
+			totalPagar += tarifaExcedenteCc;
 		}
-		return precioTotal;
+		return totalPagar;
 	}
 	
 }
