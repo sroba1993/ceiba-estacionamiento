@@ -1,9 +1,13 @@
 package com.ceiba.estacionamiento.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +21,11 @@ public class Vehiculo {
 	private String tipoVehiculo;
 	private int cilindraje;
 	
+	@ManyToOne
+	@JoinColumn(name = "idEstacionamiento")
+	private Estacionamiento estacionamiento;
 	
+
 	public Vehiculo() {
 
 	}
@@ -51,5 +59,12 @@ public class Vehiculo {
 	public void setCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 	}
-	
+
+	public Estacionamiento getEstacionamiento() {
+		return estacionamiento;
+	}
+
+	public void setEstacionamiento(Estacionamiento estacionamiento) {
+		this.estacionamiento = estacionamiento;
+	}
 }

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +23,11 @@ public class Factura {
 	private String duracion; 
 	private int totalPagar;
 	
-
+	@OneToOne
+	@JoinColumn(name = "idVehiculo")
+	private Vehiculo vehiculo;
+	
+	
 	public Factura() {
 
 	}
@@ -67,6 +73,15 @@ public class Factura {
 		this.duracion = duracion;
 	}
 	
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
+	}
+	
 	public int calcularPrecioCarro(int cantidadHoras, int cantidadDias) {
 		
 		int tarifaHoraCarro = 1_000;
@@ -105,5 +120,4 @@ public class Factura {
 		}
 		return totalPagar;
 	}
-	
 }

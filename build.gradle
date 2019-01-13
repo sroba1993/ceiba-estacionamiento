@@ -9,12 +9,15 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id "war"
+    id "com.bmuschko.tomcat" version "2.5"
 }
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
-
+    // implementacion de Tomcat
+	api 'org.apache.commons:commons-math3:3.6.1'
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:23.0'
 
@@ -26,6 +29,7 @@ dependencies {
 	compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.5.1'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider
 	compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.2.3'	
+	
 //jpa
 	// https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
@@ -53,4 +57,16 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+
 }
+
+
+
+
+
+
+
+
+
+
+
