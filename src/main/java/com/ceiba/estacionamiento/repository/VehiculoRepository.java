@@ -1,6 +1,7 @@
 package com.ceiba.estacionamiento.repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,16 +12,34 @@ import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.util.HibernateUtil;
 
 public class VehiculoRepository {
-	
-	public static void crearVehiculo(){
+
+	public static void crearVehiculo(String placa, String tipoVehiculo, int cilindraje){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		
+		Date date = new Date();
+		Vehiculo vehiculo = new Vehiculo(placa, tipoVehiculo, cilindraje, date);
+		session.save(vehiculo);
 		
 		session.getTransaction().commit();  
 		session.close();
+	}
+	
+	public static List<VehiculoDTO> obtenerListaVehiculos(){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		
+		Query<Vehiculo> queryVehiculos = session.createQuery("from Vehiculo"); 
+		List<Vehiculo> listaVehiculos = queryVehiculos.getResultList();
+		List<VehiculoDTO> vehiculoDTOs = new ArrayList<VehiculoDTO>();
+		vehiculoDTOs = VehiculoDTO.vehiculoDTO(listaVehiculos);
+		
+		session.getTransaction().commit();  
+		session.close();
+		
+		return vehiculoDTOs;
 	}
 	
 	public static List<Vehiculo> obtenerVehiculoPorPlaca(String placa){
@@ -38,21 +57,5 @@ public class VehiculoRepository {
 		session.close();
 		
 		return Vehiculo;
-	}
-	
-	public static List<VehiculoDTO> obtenerListaVehiculos(){
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		
-		Query<Vehiculo> queryVehiculos = session.createQuery("from Vehiculo"); 
-		List<Vehiculo> listaVehiculos = queryVehiculos.getResultList();
-		List<VehiculoDTO> vehiculoDTOs = new ArrayList<VehiculoDTO>();
-		vehiculoDTOs = VehiculoDTO.vehiculoDTO(listaVehiculos);
-		
-		session.getTransaction().commit();  
-		session.close();
-		
-		return vehiculoDTOs;
 	}
 }

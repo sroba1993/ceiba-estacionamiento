@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.VehiculoRepository;
 
 @Path("vehiculos")
@@ -26,4 +27,12 @@ public class VehiculoService {
 	public Response findVehicleByPlaca(@PathParam("placa") String placa) {
 		return Response.ok(VehiculoRepository.obtenerVehiculoPorPlaca(placa)).build();
 	}
+	
+	@POST
+	public Response saveVehicle(Vehiculo vehiculo) {
+		VehiculoRepository nuevoVehiculo = new VehiculoRepository();
+		//nuevoVehiculo.crearVehiculo(placa,tipoVehiculo,cilindraje);
+		return Response.status(Response.Status.CREATED).entity(nuevoVehiculo).build();
+	}
+	
 }

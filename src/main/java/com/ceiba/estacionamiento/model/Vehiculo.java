@@ -34,9 +34,12 @@ public class Vehiculo {
 
 	}
 
-	public Vehiculo(String placa, String tipoVehiculo, Date fechaEntrada) {
+	
+
+	public Vehiculo(String placa, String tipoVehiculo, int cilindraje, Date fechaEntrada) {
 		this.placa = placa;
 		this.tipoVehiculo = tipoVehiculo;
+		this.cilindraje = cilindraje;
 		this.fechaEntrada = fechaEntrada;
 	}
 

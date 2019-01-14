@@ -22,7 +22,7 @@ public class TestDB {
 		//session.save(estacionamiento);
 		
 		Date date = new Date();
-		Vehiculo vehiculo = new Vehiculo("rze97e", "moto", date);
+		Vehiculo vehiculo = new Vehiculo("rze97e", "moto", 125, date);
 		//vehiculo.setEstacionamiento(estacionamiento);
 		session.save(vehiculo);
 		
