@@ -2,13 +2,12 @@ package com.ceiba.estacionamiento;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
-import com.ceiba.estacionamiento.model.ColillaEntrada;
-import com.ceiba.estacionamiento.model.Estacionamiento;
-import com.ceiba.estacionamiento.model.Factura;
-import com.ceiba.estacionamiento.model.Vehiculo;
+import com.ceiba.estacionamiento.model.*;
 import com.ceiba.estacionamiento.util.HibernateUtil;
 
 public class TestDB {
@@ -19,24 +18,20 @@ public class TestDB {
 		session.beginTransaction();
 		
 		
-		Estacionamiento estacionamiento = new Estacionamiento(10,20);
-		session.save(estacionamiento);
-		
-		Vehiculo vehiculo = new Vehiculo("OJM20u","moto",200);
-		vehiculo.setEstacionamiento(estacionamiento);
-		session.save(vehiculo);
+		//Estacionamiento estacionamiento = new Estacionamiento(10,20);
+		//session.save(estacionamiento);
 		
 		Date date = new Date();
-		ColillaEntrada colillaEntrada = new ColillaEntrada("KHM20u",  new Timestamp(date.getTime()));
-		colillaEntrada.setVehiculo(vehiculo);
-		session.save(colillaEntrada);
+		Vehiculo vehiculo = new Vehiculo("rze97e", "moto", date);
+		//vehiculo.setEstacionamiento(estacionamiento);
+		session.save(vehiculo);
 		
-		Factura factura = new Factura("QWL963",new Timestamp(date.getTime()) , new Timestamp(date.getTime()), "02:31:06");
-		factura.setVehiculo(vehiculo);
-		session.save(factura);
+		Query<Vehiculo> queryVehiculos = session.createQuery("from Vehiculo"); 
+		List<Vehiculo> listaVehiculos = queryVehiculos.getResultList();
+		System.out.println(listaVehiculos.toString());
 		
-		
-		session.getTransaction().commit();  //para realizar los cambios, siempre va de ultimo
+		//para realizar los cambios, siempre va de ultimo
+		session.getTransaction().commit();  
 		session.close();
 	}
 }

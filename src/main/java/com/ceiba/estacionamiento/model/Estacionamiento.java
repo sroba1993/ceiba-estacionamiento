@@ -1,8 +1,11 @@
 package com.ceiba.estacionamiento.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,9 +22,6 @@ public class Estacionamiento {
 	private int cantEstacionamientoMotos = 10;
 	private int cantEstacionamientoCarros = 20;
 	
-	@OneToMany(mappedBy = "estacionamiento")
-	private Set <Vehiculo> vehiculoSet;
-	
 	public Estacionamiento() {
 
 	}	
@@ -31,6 +31,14 @@ public class Estacionamiento {
 		this.cantEstacionamientoCarros = cantEstacionamientoCarros;
 	}
 	
+
+	public int getIdEstacionamiento() {
+		return idEstacionamiento;
+	}
+
+	public void setIdEstacionamiento(int idEstacionamiento) {
+		this.idEstacionamiento = idEstacionamiento;
+	}
 
 	public int getCantEstacionamientoMotos() {
 		return cantEstacionamientoMotos;
@@ -46,14 +54,6 @@ public class Estacionamiento {
 
 	public void setCantEstacionamientoCarros(int cantEstacionamientoCarros) {
 		this.cantEstacionamientoCarros = cantEstacionamientoCarros;
-	}
-
-	public Set<Vehiculo> getVehiculoSet() {
-		return vehiculoSet;
-	}
-
-	public void setVehiculoSet(Set<Vehiculo> vehiculoSet) {
-		this.vehiculoSet = vehiculoSet;
 	}
 	
 	public Boolean validarCantPuestosMoto(int cantidadMotos) {

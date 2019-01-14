@@ -28,8 +28,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet
 	compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.5.1'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider
-	compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.2.3'	
-	
+	compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.2.3'
+	//Para poder hacer los post 	
+	//compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.27'
 //jpa
 	// https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'

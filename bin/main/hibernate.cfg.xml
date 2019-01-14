@@ -8,11 +8,11 @@
 		<property name="hibernate.connection.password">root</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.show_sql">true</property>
-		 
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
+		
 		<mapping class="com.ceiba.estacionamiento.model.Vehiculo" />
 		<mapping class="com.ceiba.estacionamiento.model.Estacionamiento" />
-		<mapping class="com.ceiba.estacionamiento.model.ColillaEntrada" />
-		<mapping class="com.ceiba.estacionamiento.model.Factura" />
 		
 	</session-factory>
 </hibernate-configuration>
+
