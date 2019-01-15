@@ -17,7 +17,6 @@ public class VehiculoRepository {
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		
 		Date date = new Date();
 		vehiculo.setFechaEntrada(date);
 		session.save(vehiculo);

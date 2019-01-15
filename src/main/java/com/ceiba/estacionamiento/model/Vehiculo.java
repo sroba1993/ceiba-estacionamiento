@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Vehiculo")
@@ -22,7 +24,11 @@ public class Vehiculo {
 	private String placa;
 	private String tipoVehiculo;
 	private int cilindraje;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaEntrada;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaSalida;
 	private int totalPagar;
 	
