@@ -13,13 +13,13 @@ import com.ceiba.estacionamiento.util.HibernateUtil;
 
 public class VehiculoRepository {
 
-	public static void crearVehiculo(String placa, String tipoVehiculo, int cilindraje){
+	public static void crearVehiculo(Vehiculo vehiculo){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
 		Date date = new Date();
-		Vehiculo vehiculo = new Vehiculo(placa, tipoVehiculo, cilindraje, date);
+		vehiculo.setFechaEntrada(date);
 		session.save(vehiculo);
 		
 		session.getTransaction().commit();  

@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.VehiculoRepository;
 
@@ -29,10 +30,13 @@ public class VehiculoService {
 	}
 	
 	@POST
-	public Response saveVehicle(Vehiculo vehiculo) {
-		VehiculoRepository nuevoVehiculo = new VehiculoRepository();
-		//nuevoVehiculo.crearVehiculo(placa,tipoVehiculo,cilindraje);
-		return Response.status(Response.Status.CREATED).entity(nuevoVehiculo).build();
-	}
-	
+	public Response addVehicle(Vehiculo vehiculo) {
+		VehiculoRepository nuevoVehiculoRepository = new VehiculoRepository();
+		nuevoVehiculoRepository.crearVehiculo(vehiculo);
+		VehiculoDTO vehiculoDTO = new VehiculoDTO();
+		vehiculoDTO.setPlaca(vehiculo.getPlaca());
+		vehiculoDTO.setTipoVehiculo(vehiculo.getTipoVehiculo());
+		vehiculoDTO.setFechaEntrada(vehiculo.getFechaEntrada());
+		return Response.status(Response.Status.CREATED).entity(vehiculoDTO).build();
+	}	
 }

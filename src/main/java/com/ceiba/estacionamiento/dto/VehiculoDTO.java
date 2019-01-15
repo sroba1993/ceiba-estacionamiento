@@ -23,7 +23,7 @@ public class VehiculoDTO {
 	}
 
 	public static List<VehiculoDTO> vehiculoDTO(List<Vehiculo> vehiculos){
-		List<VehiculoDTO> vehiculoDTOs = new ArrayList<VehiculoDTO>();
+		List<VehiculoDTO> vehiculoDTOs = new ArrayList();
 		
 		for (Vehiculo vehiculo : vehiculos) {
 			VehiculoDTO vehiculoDTO = new VehiculoDTO();
@@ -57,5 +57,4 @@ public class VehiculoDTO {
 	public void setFechaEntrada(Date fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
-
 }

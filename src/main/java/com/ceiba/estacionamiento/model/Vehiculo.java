@@ -34,8 +34,6 @@ public class Vehiculo {
 
 	}
 
-	
-
 	public Vehiculo(String placa, String tipoVehiculo, int cilindraje, Date fechaEntrada) {
 		this.placa = placa;
 		this.tipoVehiculo = tipoVehiculo;
@@ -131,7 +129,7 @@ public class Vehiculo {
 		int tarifaHoraMoto = 500;
 		int tarifaDiaMoto = 4_000;
 		int tarifaExcedenteCc = 2_000;
-		int CcExcedente = 500;
+		int ccExcedente = 500;
 		
 		if (cantidadDias > 0) {
 			totalPagar = cantidadDias * tarifaDiaMoto;
@@ -142,7 +140,7 @@ public class Vehiculo {
 		else {
 			totalPagar = cantidadHoras * tarifaHoraMoto;
 		}
-		if (cilindraje > CcExcedente) {
+		if (cilindraje > ccExcedente) {
 			totalPagar += tarifaExcedenteCc;
 		}
 		return totalPagar;
