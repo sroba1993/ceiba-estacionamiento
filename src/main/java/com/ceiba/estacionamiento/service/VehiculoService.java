@@ -1,6 +1,9 @@
 package com.ceiba.estacionamiento.service;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,7 +27,7 @@ public class VehiculoService {
 	
 	@GET
 	@Path("/{placa}")
-	public Response findVehicleByPlaca(@PathParam("placa") String placa) {
+	public Response findVehicle(@PathParam("placa") String placa) {
 		return Response.ok(VehiculoRepository.obtenerVehiculoPorPlaca(placa)).build();
 	}
 	
@@ -38,4 +41,18 @@ public class VehiculoService {
 		vehiculoDTO.setFechaEntrada(vehiculo.getFechaEntrada());
 		return Response.status(Response.Status.CREATED).entity(vehiculoDTO).build();
 	}	
+	
+	@DELETE
+	@Path("/{placa}")
+	public Response deleteVehicle(@PathParam("placa") String placa) {
+		VehiculoRepository vehiculoRepository = new VehiculoRepository();
+		List<VehiculoDTO> listadoVehiculos = vehiculoRepository.obtenerListaVehiculos();
+		for (VehiculoDTO vehiculoDTO : listadoVehiculos) {
+			if (vehiculoDTO.getPlaca().equals(placa)) {
+				VehiculoRepository.borrarVehiculo(placa);
+				return Response.noContent().build();
+			}
+		}
+		return Response.status(Response.Status.NOT_FOUND).build();		
+	}
 }

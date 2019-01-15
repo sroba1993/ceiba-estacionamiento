@@ -10,7 +10,7 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id "war"
-    id "com.bmuschko.tomcat" version "2.5"
+    id "jacoco"
 }
 
 dependencies {
@@ -58,7 +58,6 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
-
 }
 
 

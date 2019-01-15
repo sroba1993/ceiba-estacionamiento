@@ -24,6 +24,18 @@ public class VehiculoRepository {
 		session.close();
 	}
 	
+	public static void borrarVehiculo(String placa){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query<Vehiculo> queryVehiculo = session.createQuery("delete from Vehiculo where placa = :placa");
+		queryVehiculo.setParameter("placa", placa);
+		//Query<Vehiculo> queryVehiculo = session.createQuery("delete Vehiculo where id = :ID");
+		//queryVehiculo.setParameter("ID", new Long(18));
+		session.getTransaction().commit();  
+		session.close();
+	}
+	
 	public static List<VehiculoDTO> obtenerListaVehiculos(){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
