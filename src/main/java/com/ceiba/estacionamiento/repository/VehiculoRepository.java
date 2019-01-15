@@ -21,7 +21,6 @@ public class VehiculoRepository {
 		Date date = new Date();
 		vehiculo.setFechaEntrada(date);
 		session.save(vehiculo);
-		
 		session.getTransaction().commit();  
 		session.close();
 	}
@@ -35,7 +34,6 @@ public class VehiculoRepository {
 		List<Vehiculo> listaVehiculos = queryVehiculos.getResultList();
 		List<VehiculoDTO> vehiculoDTOs = new ArrayList<VehiculoDTO>();
 		vehiculoDTOs = VehiculoDTO.vehiculoDTO(listaVehiculos);
-		
 		session.getTransaction().commit();  
 		session.close();
 		
@@ -50,12 +48,10 @@ public class VehiculoRepository {
 		@SuppressWarnings("unchecked")
 		Query<Vehiculo> queryVehiculo = session.createQuery("from Vehiculo where placa = :placa"); 
 		queryVehiculo.setParameter("placa", placa);
-		List<Vehiculo> Vehiculo = queryVehiculo.getResultList();
-		System.out.println(Vehiculo.toString());
-		
+		List<Vehiculo> vehiculos = queryVehiculo.getResultList();
 		session.getTransaction().commit();  
 		session.close();
 		
-		return Vehiculo;
+		return vehiculos;
 	}
 }
