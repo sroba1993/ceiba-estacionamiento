@@ -1,4 +1,4 @@
-package com.ceiba.estacionamiento.service;
+package com.ceiba.estacionamiento.controllers;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
