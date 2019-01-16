@@ -1,5 +1,6 @@
 package com.ceiba.estacionamiento.domain.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -74,9 +75,15 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 
 	@Override
 	public List<VehiculoDTO> obtenerListaVehiculos(){
+		List<Vehiculo> listaVehiculosFiltrados = new ArrayList<>();
 		EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();
-		return VehiculoDTO.vehiculoDTO(listaVehiculos);
+		for (Vehiculo vehiculo : listaVehiculos) {
+			if(vehiculo.getTotalPagar() == 0  && vehiculo.getFechaSalida() == null) {
+				listaVehiculosFiltrados.add(vehiculo);
+			}		
+		}
+		return VehiculoDTO.vehiculoDTO(listaVehiculosFiltrados);
 	}
 	
 	@Override
