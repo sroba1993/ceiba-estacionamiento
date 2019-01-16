@@ -10,14 +10,22 @@ import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
 
 public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	
+	 
+	
 	@Override
 	public void ingresarVehiculo(Vehiculo vehiculo){
 		Date fechaEntrada = new Date();
 		vehiculo.setFechaEntrada(fechaEntrada);
-		
+		//verificar si para el tipo de vehiculo hay puesto
 		EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 		nuevoRepositorio.registrarVehiculoDB(vehiculo);	
 		//LOGICA PARA PODER INGRESAR UN VEHICULO
+	}
+	
+	@Override
+	public Boolean contarVehiculosByTipo(String tipoVehiculo) {
+		
+		return false;
 	}
 
 	public static List<VehiculoDTO> obtenerListaVehiculos(){

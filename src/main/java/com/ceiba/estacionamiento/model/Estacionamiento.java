@@ -51,20 +51,24 @@ public class Estacionamiento {
 	}
 	
 	public Boolean validarCantPuestosMoto(int cantidadMotos) {
+		Boolean validacionPuesto;
 		if (cantidadMotos < cantEstacionamientoMotos) {
-			return true;
+			validacionPuesto =true;
 		}
 		else {
-			return false;
+			validacionPuesto =false;
 		}
+		return validacionPuesto;
 	}
 	
 	public Boolean validarCantPuestosCarro(int cantidadCarros) {
+		Boolean validacionPuesto;
 		if (cantidadCarros < cantEstacionamientoCarros) {
-			return true;
+			validacionPuesto =true;
 		}
 		else {
-			return false;
+			validacionPuesto =true;
 		}
+		return validacionPuesto;
 	}
 }
