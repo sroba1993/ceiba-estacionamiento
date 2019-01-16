@@ -8,19 +8,20 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
 
-	private static final SessionFactory sessionFactory = buildSessionFactory(); 
+	private static final SessionFactory sessionFactory = buildSessionFactory();
     
-    private static SessionFactory buildSessionFactory() {
+    private HibernateUtil() {
+    	
+	}
+
+	private static SessionFactory buildSessionFactory() {
         try {  
-        	
             StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
             Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
             return metadata.getSessionFactoryBuilder().build();    
         }
         
-        catch (Throwable ex) {
-        	
-            System.err.println(" ***Creación de SessionFactory falló***   " + ex);
+        catch (RuntimeException ex) { 	
             throw new ExceptionInInitializerError(ex);
         }
     }

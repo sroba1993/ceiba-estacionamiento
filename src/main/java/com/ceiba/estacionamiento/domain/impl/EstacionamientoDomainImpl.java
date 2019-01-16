@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import com.ceiba.estacionamiento.domain.IEstacionamientoDomain;
 import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Estacionamiento;
@@ -21,10 +20,13 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	public Boolean ingresarVehiculo(Vehiculo vehiculo){
 		Date fechaEntrada = new Date();
 		vehiculo.setFechaEntrada(fechaEntrada);
-		if (validarPuestosDisponibles(vehiculo.getTipoVehiculo()) && validarIngresoVehiculosByA(vehiculo.getPlaca())) {
-			EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
-			nuevoRepositorio.registrarVehiculoDB(vehiculo);
-			return true;
+		if (validarIngresoVehiculosByA(vehiculo.getPlaca())) {
+			if(validarPuestosDisponibles(vehiculo.getTipoVehiculo())) {
+				EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
+				nuevoRepositorio.registrarVehiculoDB(vehiculo);
+				return true;
+			}		
+			return false;
 		}
 		else {
 			return false;
@@ -68,7 +70,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 		Boolean validacion;
 		Calendar fechaActual = Calendar.getInstance();
 		int diaActual = fechaActual.get(Calendar.DAY_OF_WEEK);
-		if(placa.substring(0,1).equals("a") && diaActual == Calendar.WEDNESDAY) {
+		if(placa.substring(0,1).equals("a") && diaActual == Calendar.MONDAY || diaActual == Calendar.SUNDAY) {
 			validacion = false;		
 		}
 		else {

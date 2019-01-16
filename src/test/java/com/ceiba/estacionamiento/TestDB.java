@@ -6,7 +6,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import com.ceiba.estacionamiento.model.*;
+import com.ceiba.estacionamiento.domain.*;
+import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.util.HibernateUtil;
 
 public class TestDB {

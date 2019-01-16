@@ -6,12 +6,11 @@ import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
 public interface IEstacionamientoDomain {
-
+	
 	Boolean ingresarVehiculo(Vehiculo vehiculo);
 	Boolean validarPuestosDisponibles(String tipoVehiculo);
 	Boolean validarIngresoVehiculosByA(String placa);
 	List<VehiculoDTO> obtenerListaVehiculos();
 	List<Vehiculo> obtenerVehiculoByPlaca(String placa);
-	// Vehiculo generarFacturaVehiculo(Vehiculo vehiculo);
 	//validarExisteVehiculo
 }

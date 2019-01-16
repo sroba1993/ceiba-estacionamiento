@@ -3,8 +3,6 @@ package com.ceiba.estacionamiento.repository.impl;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
-import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
 import com.ceiba.estacionamiento.util.HibernateUtil;
@@ -46,5 +44,4 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		session.close();
 		return vehiculo;
 	}
-
 }

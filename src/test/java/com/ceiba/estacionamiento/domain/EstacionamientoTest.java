@@ -1,8 +1,10 @@
-package com.ceiba.estacionamiento.model;
+package com.ceiba.estacionamiento.domain;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.ceiba.estacionamiento.model.Estacionamiento;
 
 public class EstacionamientoTest {
 	

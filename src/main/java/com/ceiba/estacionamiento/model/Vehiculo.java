@@ -2,7 +2,6 @@ package com.ceiba.estacionamiento.model;
 
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Vehiculo")
@@ -108,44 +105,4 @@ public class Vehiculo {
 	public void setTotalPagar(int totalPagar) {
 		this.totalPagar = totalPagar;
 	}
-
-	public int calcularPrecioCarro(int cantidadHoras, int cantidadDias) {
-		
-		int tarifaHoraCarro = 1_000;
-		int tarifaDiaCarro = 8_000;
-		
-		if (cantidadDias > 0) {
-			totalPagar = cantidadDias * tarifaDiaCarro;
-			if (cantidadHoras > 0) {
-				totalPagar += cantidadHoras * tarifaHoraCarro;
-			}
-		} 
-		else {
-			totalPagar = cantidadHoras * tarifaHoraCarro;
-		}
-		return totalPagar;
-	}
-	
-	public int calcularPrecioMoto(int cantidadHoras, int cantidadDias, int cilindraje) {
-		
-		int tarifaHoraMoto = 500;
-		int tarifaDiaMoto = 4_000;
-		int tarifaExcedenteCc = 2_000;
-		int ccExcedente = 500;
-		
-		if (cantidadDias > 0) {
-			totalPagar = cantidadDias * tarifaDiaMoto;
-			if (cantidadHoras > 0) {
-				totalPagar += cantidadHoras * tarifaHoraMoto;
-			}
-		} 
-		else {
-			totalPagar = cantidadHoras * tarifaHoraMoto;
-		}
-		if (cilindraje > ccExcedente) {
-			totalPagar += tarifaExcedenteCc;
-		}
-		return totalPagar;
-	}
-	
 }
