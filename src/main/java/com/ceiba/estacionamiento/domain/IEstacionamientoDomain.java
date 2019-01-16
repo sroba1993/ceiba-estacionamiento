@@ -1,11 +1,17 @@
 package com.ceiba.estacionamiento.domain;
 
+import java.util.List;
+
+import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
 public interface IEstacionamientoDomain {
 
-	public void ingresarVehiculo(Vehiculo vehiculo);
-	public Boolean contarVehiculosByTipo(String tipoVehiculo);
-	//public Vehiculo generarFacturaVehiculo(Vehiculo vehiculo);
+	Boolean ingresarVehiculo(Vehiculo vehiculo);
+	Boolean validarPuestosDisponibles(String tipoVehiculo);
+	Boolean validarIngresoVehiculosByA(String placa);
+	List<VehiculoDTO> obtenerListaVehiculos();
+	List<Vehiculo> obtenerVehiculoByPlaca(String placa);
+	// Vehiculo generarFacturaVehiculo(Vehiculo vehiculo);
 	//validarExisteVehiculo
 }

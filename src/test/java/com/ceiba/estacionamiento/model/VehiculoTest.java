@@ -6,12 +6,13 @@ import org.junit.Test;
 
 public class VehiculoTest {
 	
+	final int PRECIO = 3_000;
 	private Vehiculo vehiculo = new Vehiculo();
 	
 	@Test
 	public void calcularPrecioParqueoCarroHoras() {
-		int precioParqueoEsperado = vehiculo.calcularPrecioCarro(3,0);		
-		assertEquals(precioParqueoEsperado,3_000);
+		int precioParqueoEsperado = vehiculo.calcularPrecioCarro(3,0);
+		assertEquals(precioParqueoEsperado,PRECIO);
 	}
 	
 	@Test

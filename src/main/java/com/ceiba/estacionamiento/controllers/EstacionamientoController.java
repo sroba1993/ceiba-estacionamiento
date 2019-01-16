@@ -20,19 +20,25 @@ public class EstacionamientoController {
 	
 	@GET
 	public Response findAllVehicles() {
-		return Response.ok(EstacionamientoDomainImpl.obtenerListaVehiculos()).build();	
+		EstacionamientoDomainImpl listadoVehiculos =new EstacionamientoDomainImpl();
+		return Response.ok(listadoVehiculos.obtenerListaVehiculos()).build();	
 	}
 	
 	@GET
 	@Path("/{placa}")
 	public Response findVehicle(@PathParam("placa") String placa) {
-		return Response.ok(EstacionamientoDomainImpl.obtenerVehiculo(placa)).build();
+		EstacionamientoDomainImpl vehiculoByPlaca =new EstacionamientoDomainImpl();
+		return Response.ok(vehiculoByPlaca.obtenerVehiculoByPlaca(placa)).build();
 	}
 	
 	@POST
 	public Response addVehicle(Vehiculo vehiculo) {
 		EstacionamientoDomainImpl nuevoIngresoVehiculo = new EstacionamientoDomainImpl();
-		nuevoIngresoVehiculo.ingresarVehiculo(vehiculo);
-		return Response.status(Response.Status.CREATED).build();
+		if(nuevoIngresoVehiculo.ingresarVehiculo(vehiculo)) {
+			return Response.status(Response.Status.CREATED).build();	
+		}
+		else {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
 	}	
 }

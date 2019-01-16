@@ -22,19 +22,6 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 	}
 	
 	@Override
-	public void borrarVehiculoDB(String placa){
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		Query<Vehiculo> queryVehiculo = session.createQuery("delete from Vehiculo where placa = :placa");
-		queryVehiculo.setParameter("placa", placa);
-		//Query<Vehiculo> queryVehiculo = session.createQuery("delete Vehiculo where id = :ID");
-		//queryVehiculo.setParameter("ID", new Long(18));
-		session.getTransaction().commit();  
-		session.close();
-	}
-	
-	@Override
 	public List<Vehiculo> obtenerVehiculosDB(){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();

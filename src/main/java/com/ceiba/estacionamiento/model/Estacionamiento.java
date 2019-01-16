@@ -49,26 +49,4 @@ public class Estacionamiento {
 	public void setCantEstacionamientoCarros(int cantEstacionamientoCarros) {
 		this.cantEstacionamientoCarros = cantEstacionamientoCarros;
 	}
-	
-	public Boolean validarCantPuestosMoto(int cantidadMotos) {
-		Boolean validacionPuesto;
-		if (cantidadMotos < cantEstacionamientoMotos) {
-			validacionPuesto =true;
-		}
-		else {
-			validacionPuesto =false;
-		}
-		return validacionPuesto;
-	}
-	
-	public Boolean validarCantPuestosCarro(int cantidadCarros) {
-		Boolean validacionPuesto;
-		if (cantidadCarros < cantEstacionamientoCarros) {
-			validacionPuesto =true;
-		}
-		else {
-			validacionPuesto =true;
-		}
-		return validacionPuesto;
-	}
 }
