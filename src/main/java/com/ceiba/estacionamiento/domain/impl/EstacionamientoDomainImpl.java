@@ -33,6 +33,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	
 	@Override
 	public Boolean validarPuestosDisponibles(String tipoVehiculo) {
+		Boolean validacion;
 		EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();
 		int contadorPuestosOcupados = 0;
@@ -42,35 +43,38 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 			}		
 		}
 		if (validarCantPuestosVehiculos(contadorPuestosOcupados, tipoVehiculo)) {
-			return true;
+			validacion = true;
 		}
 		else {
-			return false;
+			validacion = false;
 		}
+		return validacion;
 	}
 	
 	public Boolean validarCantPuestosVehiculos(int cantidadVehiculos, String tipoVehiculo) {
-		if (cantidadVehiculos < estacionamiento.getCantEstacionamientoCarros() && tipoVehiculo.equals(CARRO)) {
-			return true;
-		}
-		else if (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO)) {
-			return true;
+		Boolean validacion;
+		if (cantidadVehiculos < estacionamiento.getCantEstacionamientoCarros() && tipoVehiculo.equals(CARRO)
+				|| (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO))) {
+			validacion = true;
 		}
 		else {
-			return false;
+			validacion = false;
 		}
+		return validacion;
 	}
+	
 	@Override
 	public Boolean validarIngresoVehiculosByA(String placa) {
-		Calendar calendar = Calendar.getInstance();
-		int fechaActual = calendar.DAY_OF_WEEK;
-		
-		if(placa.substring(0,1).equals("a") && fechaActual == Calendar.MONDAY) {
-			return false;		
+		Boolean validacion;
+		Calendar fechaActual = Calendar.getInstance();
+		int diaActual = fechaActual.get(Calendar.DAY_OF_WEEK);
+		if(placa.substring(0,1).equals("a") && diaActual == Calendar.WEDNESDAY) {
+			validacion = false;		
 		}
 		else {
-			return true;
-		}	
+			validacion = true;
+		}
+		return validacion;
 	}
 
 	@Override
