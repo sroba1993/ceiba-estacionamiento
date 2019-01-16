@@ -24,11 +24,7 @@ public class Vehiculo {
 	private String placa;
 	private String tipoVehiculo;
 	private int cilindraje;
-	
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaEntrada;
-	
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaSalida;
 	private int totalPagar;
 	
@@ -150,12 +146,6 @@ public class Vehiculo {
 			totalPagar += tarifaExcedenteCc;
 		}
 		return totalPagar;
-	}
-	
-	@Override
-	public String toString() {
-		return "Vehiculo [idVehiculo=" + idVehiculo + ", placa=" + placa + ", tipoVehiculo=" + tipoVehiculo
-				+ ", cilindraje=" + cilindraje + ", estacionamiento=" + estacionamiento + "]";
 	}
 	
 }

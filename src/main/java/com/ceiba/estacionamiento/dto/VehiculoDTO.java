@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.ceiba.estacionamiento.model.Vehiculo;
 
@@ -13,8 +11,6 @@ public class VehiculoDTO {
 
 	private String placa;
 	private String tipoVehiculo;
-	
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaEntrada;
 
 	public VehiculoDTO() {

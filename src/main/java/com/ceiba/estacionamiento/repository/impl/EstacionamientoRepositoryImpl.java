@@ -1,4 +1,4 @@
-package com.ceiba.estacionamiento.repository;
+package com.ceiba.estacionamiento.repository.impl;
 
 import java.util.List;
 import org.hibernate.Session;
@@ -6,12 +6,13 @@ import org.hibernate.query.Query;
 
 import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
+import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
 import com.ceiba.estacionamiento.util.HibernateUtil;
 
-public class VehiculoRepository implements IRepository{
+public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository{
 	
 	@Override
-	public void crearVehiculoDB(Vehiculo vehiculo){
+	public void registrarVehiculoDB(Vehiculo vehiculo){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -46,7 +47,7 @@ public class VehiculoRepository implements IRepository{
 	}
 	
 	@Override
-	public List<Vehiculo> obtenerVehiculoPorPlaca(String placa){
+	public List<Vehiculo> obtenerVehiculoPorPlacaDB(String placa){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
