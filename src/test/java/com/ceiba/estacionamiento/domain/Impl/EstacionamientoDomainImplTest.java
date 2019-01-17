@@ -1,23 +1,25 @@
 package com.ceiba.estacionamiento.domain.Impl;
 
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import javax.validation.constraints.AssertFalse;
-
+import java.util.List;
 import org.junit.Test;
 import com.ceiba.estacionamiento.domain.impl.EstacionamientoDomainImpl;
+import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
+import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
 
 public class EstacionamientoDomainImplTest {
 	
-	private EstacionamientoDomainImpl estacionamientoDomain = new EstacionamientoDomainImpl();
-	private Vehiculo vehiculo = new Vehiculo(); 
 	final static String PLACA_MOTO = "lwq12t";
 	final static String TIPO_VEHICULO_MOTO = "moto";
 	final static String PLACA_CARRO = "tyo346";
 	final static String TIPO_VEHICULO_CARRO = "carro";
 	final static String PLACA_BY_A = "att987";
+	private EstacionamientoDomainImpl estacionamientoDomain = new EstacionamientoDomainImpl();
+	private EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
+	private Vehiculo vehiculo = new Vehiculo(); 
 	
 	@Test
 	public void validarIngresoVehiculoRegistroVehiculoMoto() {
@@ -52,13 +54,13 @@ public class EstacionamientoDomainImplTest {
 	@Test
 	public void validarPuestosDisponiblesMotos() {
 		Boolean respuestEsperadaEstacionamientoMotos = estacionamientoDomain.validarPuestosDisponibles(TIPO_VEHICULO_MOTO);
-		assertFalse(respuestEsperadaEstacionamientoMotos);
+		assertTrue(respuestEsperadaEstacionamientoMotos);
 	}
 	
 	@Test
 	public void validarPuestosDisponiblesCarros() {
 		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarPuestosDisponibles(TIPO_VEHICULO_CARRO);
-		assertFalse(respuestEsperadaEstacionamientoCarros);
+		assertTrue(respuestEsperadaEstacionamientoCarros);
 	}
 	
 	@Test
@@ -74,9 +76,33 @@ public class EstacionamientoDomainImplTest {
 	}
 	
 	@Test
-	public void validarIngresoMotosByA() {
+	public void validarIngresoVehiculosByA() {
 		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarIngresoVehiculosByA(PLACA_BY_A);
 		assertTrue(respuestEsperadaEstacionamientoCarros);
 	}
 	
+	@Test
+	public void validarObtencionListaVehiculos() {
+		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();		
+		List<VehiculoDTO> listaVehiculosDTOs = estacionamientoDomain.obtenerListaVehiculos();
+		int apuntador = 0;
+		for (Vehiculo vehiculo : listaVehiculos) {
+				VehiculoDTO vehiculoDTO =listaVehiculosDTOs.get(apuntador);
+				assertTrue(vehiculo.getPlaca().equals(vehiculoDTO.getPlaca()));
+				assertTrue(vehiculo.getTipoVehiculo().equals(vehiculoDTO.getTipoVehiculo()));
+				assertTrue(vehiculo.getFechaEntrada().equals(vehiculoDTO.getFechaEntrada()));
+				apuntador += 1;
+		}
+	}
+	
+	@Test
+	public void validarObtencionVehiculoByPlaca() {
+		List<Vehiculo> listaVehiculoRepository = nuevoRepositorio.obtenerVehiculoPorPlacaDB(PLACA_MOTO);
+		List<Vehiculo> listaVehiculoEsperado = estacionamientoDomain.obtenerVehiculoByPlaca(PLACA_MOTO);
+		Vehiculo vehiculoRepository = listaVehiculoRepository.get(0);
+		Vehiculo vehiculoEsperado = listaVehiculoEsperado.get(0);
+			assertTrue(vehiculoRepository.getPlaca().equals(vehiculoEsperado.getPlaca()));
+			assertTrue(vehiculoRepository.getTipoVehiculo().equals(vehiculoEsperado.getTipoVehiculo()));
+			assertTrue(vehiculoRepository.getFechaEntrada().equals(vehiculoEsperado.getFechaEntrada()));
+	}
 }

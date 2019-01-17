@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-01-17T15:22:21" hostname="STID-RODRIGUEZ" time="0.002">
+  <properties/>
+  <testcase name="calcularPrecioParqueoMotoCilindrajeAlto" classname="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" time="0.0"/>
+  <testcase name="calcularPrecioParqueoMotoDiasHoras" classname="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" time="0.0"/>
+  <testcase name="calcularPrecioParqueoMotoHoras" classname="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" time="0.0"/>
+  <testcase name="calcularPrecioParqueoMotoDias" classname="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" time="0.0"/>
+  <testcase name="calcularPrecioParqueoCarroDias" classname="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" time="0.0"/>
+  <testcase name="calcularPrecioParqueoCarroHoras" classname="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" time="0.0"/>
+  <testcase name="calcularPrecioParqueoCarroDiasHoras" classname="com.ceiba.estacionamiento.domain.Impl.FacturacionDomainImplTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
