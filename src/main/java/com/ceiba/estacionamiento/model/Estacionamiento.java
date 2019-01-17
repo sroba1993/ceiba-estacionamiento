@@ -24,7 +24,6 @@ public class Estacionamiento {
 		this.cantEstacionamientoMotos = cantEstacionamientoMotos;
 		this.cantEstacionamientoCarros = cantEstacionamientoCarros;
 	}
-	
 
 	public int getIdEstacionamiento() {
 		return idEstacionamiento;
