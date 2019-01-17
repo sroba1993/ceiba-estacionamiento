@@ -2,11 +2,11 @@ package com.ceiba.estacionamiento.domain.Impl;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import com.ceiba.estacionamiento.domain.impl.FacturacionDomainImpl;
+import com.ceiba.estacionamiento.domain.impl.CalculoPrecioDomainImpl;
 
 public class FacturacionDomainImplTest {
 	
-	private FacturacionDomainImpl nuevoCobro = new FacturacionDomainImpl();
+	private CalculoPrecioDomainImpl nuevoCobro = new CalculoPrecioDomainImpl();
 	
 	@Test
 	public void calcularPrecioParqueoCarroHoras() {

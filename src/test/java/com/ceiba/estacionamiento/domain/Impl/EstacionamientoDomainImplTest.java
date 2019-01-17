@@ -94,7 +94,7 @@ public class EstacionamientoDomainImplTest {
 				apuntador += 1;
 		}
 	}
-	
+	 
 	@Test
 	public void validarObtencionVehiculoByPlaca() {
 		List<Vehiculo> listaVehiculoRepository = nuevoRepositorio.obtenerVehiculoPorPlacaDB(PLACA_MOTO);

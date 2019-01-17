@@ -39,6 +39,10 @@ public class EstacionamientoController {
 	@PUT
 	@Path("{placa}")
 	public Response updateVehicle(@PathParam("placa") String placa) {
-		return Response.ok(estacionamientoDomainImpl.registrarSalidaVehiculo(placa)).build();
+		Vehiculo vehiculo = estacionamientoDomainImpl.registrarSalidaVehiculo(placa);
+		if (vehiculo.getPlaca().equals(placa)) {
+			return Response.ok(vehiculo).build();
+		}
+		return Response.noContent().build();
 	}
 }

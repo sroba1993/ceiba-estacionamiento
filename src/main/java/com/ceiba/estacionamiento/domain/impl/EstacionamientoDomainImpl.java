@@ -12,6 +12,7 @@ import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
 
 public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	
+	private EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 	private Estacionamiento estacionamiento = new Estacionamiento();
 	private static final String MOTO = "moto";
 	private static final String CARRO = "carro";
@@ -22,7 +23,6 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 		vehiculo.setFechaEntrada(fechaEntrada);
 		if (validarIngresoVehiculosByA(vehiculo.getPlaca())) {
 			if(validarPuestosDisponibles(vehiculo.getTipoVehiculo())) {
-				EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 				nuevoRepositorio.registrarVehiculoDB(vehiculo);
 				return "Vehiculo registrado";
 			}
@@ -39,7 +39,6 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	@Override
 	public Boolean validarPuestosDisponibles(String tipoVehiculo) {
 		Boolean validacion;
-		EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();
 		int contadorPuestosOcupados = 0;
 		for (Vehiculo vehiculo : listaVehiculos) {
@@ -85,7 +84,6 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	@Override
 	public List<VehiculoDTO> obtenerListaVehiculos(){
 		List<Vehiculo> listaVehiculosFiltrados = new ArrayList<>();
-		EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();
 		for (Vehiculo vehiculo : listaVehiculos) {
 			if(vehiculo.getTotalPagar() == 0  && vehiculo.getFechaSalida() == null) {
@@ -97,13 +95,21 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	
 	@Override
 	public List<Vehiculo> obtenerVehiculoByPlaca(String placa){
-		EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 		return nuevoRepositorio.obtenerVehiculoPorPlacaDB(placa);
 	}
 	
 	@Override
 	public Vehiculo registrarSalidaVehiculo(String placa) {
-		
+		List<Vehiculo> listaVehiculosActivos = nuevoRepositorio.obtenerVehiculosDB();
+		for (Vehiculo vehiculo : listaVehiculosActivos) {
+			if (vehiculo.getPlaca().equals(placa) && vehiculo.getTotalPagar() == 0 && vehiculo.getFechaSalida() == null) {
+				Date fechaSalida = new Date();
+				vehiculo.setFechaSalida(fechaSalida);
+				Vehiculo vehiculoParaSalir = new CalculoPrecioDomainImpl().calcularTiempoEstacionamiento(vehiculo);
+				//actualizar
+				//retornar nuevo vehiculo
+			}
+		}	
 		return null;
 	}
 }
