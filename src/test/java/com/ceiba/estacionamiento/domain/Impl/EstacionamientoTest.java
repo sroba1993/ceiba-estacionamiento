@@ -1,4 +1,4 @@
-package com.ceiba.estacionamiento.domain;
+package com.ceiba.estacionamiento.domain.Impl;
 
 import static org.junit.Assert.*;
 

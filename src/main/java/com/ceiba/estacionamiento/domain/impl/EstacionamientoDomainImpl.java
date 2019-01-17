@@ -17,19 +17,22 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	private static final String CARRO = "carro";
 	
 	@Override
-	public Boolean ingresarVehiculo(Vehiculo vehiculo){
+	public String ingresarVehiculo(Vehiculo vehiculo){
 		Date fechaEntrada = new Date();
 		vehiculo.setFechaEntrada(fechaEntrada);
 		if (validarIngresoVehiculosByA(vehiculo.getPlaca())) {
 			if(validarPuestosDisponibles(vehiculo.getTipoVehiculo())) {
 				EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 				nuevoRepositorio.registrarVehiculoDB(vehiculo);
-				return true;
-			}		
-			return false;
+				return "Vehiculo registrado";
+			}
+			else {
+				return "Parqueadero lleno";
+			}
+			
 		}
 		else {
-			return false;
+			return "No es un día hábil para ese vehiculo";
 		}
 	}
 	

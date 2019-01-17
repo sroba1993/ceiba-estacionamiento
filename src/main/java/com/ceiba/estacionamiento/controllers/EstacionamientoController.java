@@ -8,7 +8,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import com.ceiba.estacionamiento.domain.impl.EstacionamientoDomainImpl;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
@@ -18,27 +17,21 @@ import com.ceiba.estacionamiento.model.Vehiculo;
 @Produces(value = MediaType.APPLICATION_JSON)
 public class EstacionamientoController {
 	
+	private EstacionamientoDomainImpl estacionamientoDomainImpl =new EstacionamientoDomainImpl();
+	
 	@GET
-	public Response findAllVehicles() {
-		EstacionamientoDomainImpl listadoVehiculos =new EstacionamientoDomainImpl();
-		return Response.ok(listadoVehiculos.obtenerListaVehiculos()).build();	
+	public Response findAllVehicles() {	
+		return Response.ok(estacionamientoDomainImpl.obtenerListaVehiculos()).build();	
 	}
 	
 	@GET
 	@Path("/{placa}")
 	public Response findVehicle(@PathParam("placa") String placa) {
-		EstacionamientoDomainImpl vehiculoByPlaca =new EstacionamientoDomainImpl();
-		return Response.ok(vehiculoByPlaca.obtenerVehiculoByPlaca(placa)).build();
+		return Response.ok(estacionamientoDomainImpl.obtenerVehiculoByPlaca(placa)).build();
 	}
 	
 	@POST
-	public Response addVehicle(Vehiculo vehiculo) {
-		EstacionamientoDomainImpl nuevoIngresoVehiculo = new EstacionamientoDomainImpl();
-		if(nuevoIngresoVehiculo.ingresarVehiculo(vehiculo)) {
-			return Response.status(Response.Status.CREATED).build();	
-		}
-		else {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+	public String addVehicle(Vehiculo vehiculo) {
+		return estacionamientoDomainImpl.ingresarVehiculo(vehiculo);
 	}	
 }
