@@ -100,4 +100,10 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 		EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 		return nuevoRepositorio.obtenerVehiculoPorPlacaDB(placa);
 	}
+	
+	@Override
+	public Vehiculo registrarSalidaVehiculo(String placa) {
+		
+		return null;
+	}
 }

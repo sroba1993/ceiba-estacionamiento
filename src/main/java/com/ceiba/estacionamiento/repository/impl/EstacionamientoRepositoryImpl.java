@@ -17,7 +17,7 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		session.save(vehiculo);
 		session.getTransaction().commit();  
 		session.close();
-	}
+	} 
 	
 	@Override
 	public List<Vehiculo> obtenerVehiculosDB(){
@@ -44,4 +44,13 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		session.close();
 		return vehiculo;
 	}
+	
+	@Override
+	public void actualizarVehiculoDB(Vehiculo vehiculo){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(vehiculo);
+		session.getTransaction().commit();  
+		session.close();
+	} 
 }

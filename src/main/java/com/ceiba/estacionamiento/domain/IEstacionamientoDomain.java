@@ -11,4 +11,5 @@ public interface IEstacionamientoDomain {
 	Boolean validarIngresoVehiculosByA(String placa);
 	List<VehiculoDTO> obtenerListaVehiculos();
 	List<Vehiculo> obtenerVehiculoByPlaca(String placa);
+	Vehiculo registrarSalidaVehiculo(String placa);
 }

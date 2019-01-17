@@ -3,6 +3,7 @@ package com.ceiba.estacionamiento.controllers;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,4 +35,10 @@ public class EstacionamientoController {
 	public String addVehicle(Vehiculo vehiculo) {
 		return estacionamientoDomainImpl.ingresarVehiculo(vehiculo);
 	}	
+	
+	@PUT
+	@Path("{placa}")
+	public Response updateVehicle(@PathParam("placa") String placa) {
+		return Response.ok(estacionamientoDomainImpl.registrarSalidaVehiculo(placa)).build();
+	}
 }

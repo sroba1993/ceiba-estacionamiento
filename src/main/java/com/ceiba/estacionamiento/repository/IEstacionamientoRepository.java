@@ -9,4 +9,5 @@ public interface IEstacionamientoRepository {
 	public void registrarVehiculoDB(Vehiculo vehiculo);
 	public List<Vehiculo> obtenerVehiculosDB();
 	public List<Vehiculo> obtenerVehiculoPorPlacaDB(String placa);
+	void actualizarVehiculoDB(Vehiculo vehiculo);
 }
