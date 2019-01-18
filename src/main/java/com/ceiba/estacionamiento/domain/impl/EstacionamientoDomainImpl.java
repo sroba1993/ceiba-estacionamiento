@@ -12,10 +12,10 @@ import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
 
 public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	
+	private static final String MOTO = "moto"; 
+	private static final String CARRO = "carro";
 	private EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 	private Estacionamiento estacionamiento = new Estacionamiento();
-	private static final String MOTO = "moto";
-	private static final String CARRO = "carro";
 	
 	@Override
 	public String ingresarVehiculo(Vehiculo vehiculo){
@@ -111,5 +111,5 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 			}
 		}	
 		return null;
-	}
+	} 
 }

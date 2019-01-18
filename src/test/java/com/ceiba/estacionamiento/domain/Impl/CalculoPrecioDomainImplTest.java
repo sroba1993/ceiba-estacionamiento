@@ -15,7 +15,7 @@ public class CalculoPrecioDomainImplTest {
 	private CalculoPrecioDomainImpl nuevoCobro = new CalculoPrecioDomainImpl();
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private Vehiculo vehiculo = new Vehiculo(); 
-
+	 
 	@Test 
 	public void validarCalculoTiempoEstacionamientoMotoHoras() throws ParseException {
 		Date fechaEntrada = format.parse("2018-01-18 06:00:00"); 
@@ -43,7 +43,7 @@ public class CalculoPrecioDomainImplTest {
 		Date fechaSalida = format.parse("2018-01-18 12:00:00"); 
 		correrPruebacalculoTiempoEstacionamiento(MOTO,fechaEntrada, fechaSalida,650, 12_000);
 	}
-	
+
 	@Test 
 	public void validarCalculoTiempoEstacionamientoCarroDias() throws ParseException {
 		Date fechaEntrada = format.parse("2018-01-16 01:00:00"); 
@@ -53,16 +53,16 @@ public class CalculoPrecioDomainImplTest {
 	
 	@Test 
 	public void validarCalculoTiempoEstacionamientoCarroHoras() throws ParseException {
-		Date fechaEntrada = format.parse("2018-01-15 09:00:00"); 
+		Date fechaEntrada = format.parse("2018-01-18 09:00:00"); 
 		Date fechaSalida = format.parse("2018-01-18 09:40:00"); 
-		correrPruebacalculoTiempoEstacionamiento(CARRO,fechaEntrada, fechaSalida,0, 25_000);
+		correrPruebacalculoTiempoEstacionamiento(CARRO,fechaEntrada, fechaSalida,0, 1_000);
 	}
 	
 	@Test 
 	public void validarCalculoTiempoEstacionamientoCarroHorasDias() throws ParseException {
-		Date fechaEntrada = format.parse("2018-01-16 09:00:00"); 
-		Date fechaSalida = format.parse("2018-01-18 09:40:00"); 
-		correrPruebacalculoTiempoEstacionamiento(CARRO,fechaEntrada, fechaSalida,0, 17_000);
+		Date fechaEntrada = format.parse("2018-01-05 09:00:00"); 
+		Date fechaSalida = format.parse("2018-01-18 14:40:00"); 
+		correrPruebacalculoTiempoEstacionamiento(CARRO,fechaEntrada, fechaSalida,0, 110_000);
 	}
 	
 	public void correrPruebacalculoTiempoEstacionamiento(String tipoVehiculo, Date fechaEntrada, Date fechaSalida,int cilindraje, int cobroEsperado) {
