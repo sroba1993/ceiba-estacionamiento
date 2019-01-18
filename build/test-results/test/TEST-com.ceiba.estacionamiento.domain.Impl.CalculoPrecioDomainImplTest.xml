@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2019-01-18T16:55:13" hostname="STID-RODRIGUEZ" time="0.045">
+  <properties/>
+  <testcase name="calcularPrecioParqueoMotoCilindrajeAlto" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.0"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoDias" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.003"/>
+  <testcase name="validarCalculoTiempoEstacionamientoCarroHoras" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.003"/>
+  <testcase name="calcularPrecioParqueoMotoDiasHoras" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.001"/>
+  <testcase name="calcularPrecioParqueoMotoHoras" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.001"/>
+  <testcase name="calcularPrecioParqueoMotoDias" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.002"/>
+  <testcase name="calcularPrecioParqueoCarroDias" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.001"/>
+  <testcase name="calcularPrecioParqueoCarroHoras" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.0"/>
+  <testcase name="validarCalculoTiempoEstacionamientoCarroHorasDias" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.001"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoHoras" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.003"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoDiasHoras" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.002"/>
+  <testcase name="calcularPrecioParqueoCarroDiasHoras" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.004"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoCilindraje" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.002"/>
+  <testcase name="validarCalculoTiempoEstacionamientoCarroDias" classname="com.ceiba.estacionamiento.domain.Impl.CalculoPrecioDomainImplTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

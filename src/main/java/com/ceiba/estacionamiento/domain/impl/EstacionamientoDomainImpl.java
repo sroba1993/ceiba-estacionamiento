@@ -106,8 +106,8 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 				Date fechaSalida = new Date();
 				vehiculo.setFechaSalida(fechaSalida);
 				Vehiculo vehiculoParaSalir = new CalculoPrecioDomainImpl().calcularTiempoEstacionamiento(vehiculo);
-				//actualizar
-				//retornar nuevo vehiculo
+				nuevoRepositorio.actualizarVehiculoDB(vehiculoParaSalir);
+				return vehiculoParaSalir;
 			}
 		}	
 		return null;

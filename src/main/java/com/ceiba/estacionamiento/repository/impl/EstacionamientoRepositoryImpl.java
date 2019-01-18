@@ -49,7 +49,7 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 	public void actualizarVehiculoDB(Vehiculo vehiculo){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		session.save(vehiculo);
+		session.update(vehiculo);
 		session.getTransaction().commit();  
 		session.close();
 	} 

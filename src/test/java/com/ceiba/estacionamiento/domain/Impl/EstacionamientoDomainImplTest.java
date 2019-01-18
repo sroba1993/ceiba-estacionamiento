@@ -96,7 +96,7 @@ public class EstacionamientoDomainImplTest {
 	}
 	 
 	@Test
-	public void validarObtencionVehiculoByPlaca() {
+	public void validarObtencionVehiculoByPlaca() { 
 		List<Vehiculo> listaVehiculoRepository = nuevoRepositorio.obtenerVehiculoPorPlacaDB(PLACA_MOTO);
 		List<Vehiculo> listaVehiculoEsperado = estacionamientoDomain.obtenerVehiculoByPlaca(PLACA_MOTO);
 		Vehiculo vehiculoRepository = listaVehiculoRepository.get(0);

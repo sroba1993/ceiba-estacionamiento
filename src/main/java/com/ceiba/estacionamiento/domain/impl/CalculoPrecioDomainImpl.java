@@ -1,16 +1,12 @@
 package com.ceiba.estacionamiento.domain.impl;
 
-import java.time.Period;
 import java.util.Date;
-
-import org.apache.commons.math3.geometry.euclidean.oned.Interval;
-
 import com.ceiba.estacionamiento.domain.ICalculoprecioDomain;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
 public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 	
-	static final int TARAIFA_HORA_CARRO = 1_000;
+	static final int TARIFA_HORA_CARRO = 1_000;
 	static final int TARIFA_DIA_CARRO = 8_000;
 	static final int TARIFA_HORA_MOTO = 500;
 	static final int TARIFA_DIA_MOTO = 4_000;
@@ -24,9 +20,22 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 	public Vehiculo calcularTiempoEstacionamiento(Vehiculo vehiculo) {
 		Date fechaEntrada = vehiculo.getFechaEntrada();
 		Date fechaSalida = vehiculo.getFechaSalida();
-		long diferenciaTiempo = fechaSalida.getTime() - fechaEntrada.getTime(); 
-		int horas = (int) (diferenciaTiempo/(60 * 60 * 1000) % 24); 
-		int dias = (int) (diferenciaTiempo/(24 * 60 * 60 * 1000)); 
+		long  diferenciatiempo = fechaSalida.getTime() - fechaEntrada.getTime();
+		int minutos = (int) (diferenciatiempo/(60 * 1000) % 60); 
+		int horas = (int) (diferenciatiempo/(60 * 60 * 1000) % 24); 
+		int dias= (int) (diferenciatiempo/(24 * 60 * 60 * 1000));  
+
+		if(horas > 9){
+			dias = 1;
+			horas = 0;
+			if(minutos > 0) {
+				horas = 1;
+			}
+		}
+		else if(minutos > 0) {
+			horas += 1;
+		}
+
 		if(vehiculo.getTipoVehiculo().equals(CARRO)) {
 			int totalApagar = calcularPrecioCarro(horas, dias);
 			vehiculo.setTotalPagar(totalApagar);
@@ -37,17 +46,17 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 		}
 		return vehiculo;
 	}
-	
+
 	@Override
 	public int calcularPrecioCarro(int cantidadHoras, int cantidadDias) {
 		if (cantidadDias > 0) {
 			valorPagar = cantidadDias * TARIFA_DIA_CARRO;
 			if (cantidadHoras > 0) {
-				valorPagar += cantidadHoras * TARAIFA_HORA_CARRO;
+				valorPagar += cantidadHoras * TARIFA_HORA_CARRO;
 			}
 		} 
 		else {
-			valorPagar = cantidadHoras * TARAIFA_HORA_CARRO;
+			valorPagar = cantidadHoras * TARIFA_HORA_CARRO;
 		}
 		return valorPagar;
 	}
