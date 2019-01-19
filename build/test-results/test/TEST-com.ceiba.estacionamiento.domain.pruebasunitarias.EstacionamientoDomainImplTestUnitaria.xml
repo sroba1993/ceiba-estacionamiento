@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" tests="15" skipped="0" failures="0" errors="0" timestamp="2019-01-19T19:03:08" hostname="STID-RODRIGUEZ" time="0.064">
+<testsuite name="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" tests="18" skipped="0" failures="0" errors="0" timestamp="2019-01-19T22:55:28" hostname="STID-RODRIGUEZ" time="0.106">
   <properties/>
-  <testcase name="validarIngresoVehiculoDiaNoHabilplacasA" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.035"/>
-  <testcase name="validarCantPuestosCarros" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="validarCantPuestosMotos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
+  <testcase name="validarIngresoVehiculoDiaNoHabilplacasA" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.024"/>
+  <testcase name="validarCantPuestosCarros" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.0"/>
+  <testcase name="validarCantPuestosMotos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.0"/>
   <testcase name="validarPuestosLlenosCarros" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="validarIngresoVehiculosNoIniciaByA" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.0"/>
+  <testcase name="validarIngresoVehiculosNoIniciaByA" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
   <testcase name="validarIngresoCarro" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.002"/>
-  <testcase name="validarIngresoCarroEstacionamientoLleno" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
+  <testcase name="validarIngresoCarroEstacionamientoLleno" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.002"/>
   <testcase name="validarPuestosDisponiblesMotos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="validarIngresoVehiculosByA" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="validarPuestosDisponiblesCarros" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="validarPuestosLlenosMotos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.0"/>
+  <testcase name="validarObtencionListaVehiculos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.004"/>
+  <testcase name="validarIngresoVehiculosByA" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.002"/>
+  <testcase name="validarPuestosDisponiblesCarros" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.004"/>
+  <testcase name="validarPuestosLlenosMotos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.002"/>
   <testcase name="validarCantPuestosMotosLlenos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
   <testcase name="validarIngresoMoto" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="validarIngresoMotoEstacionamientoLleno" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.0"/>
+  <testcase name="validarIngresoMotoEstacionamientoLleno" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.001"/>
+  <testcase name="probarValidacionRegistroSalidaVehiculoPlacaNoExistente" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.0"/>
+  <testcase name="validarObtencionVehiculoByPlaca" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.003"/>
   <testcase name="validarCantPuestosCarrosLLenos" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.EstacionamientoDomainImplTestUnitaria" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

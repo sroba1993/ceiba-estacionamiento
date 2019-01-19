@@ -27,7 +27,7 @@ public class EstacionamientoDomainImplTestUnitaria {
 	final static String PLACA_CARRO = "tyo346";
 	final static String TIPO_VEHICULO_CARRO = "carro";
 	final static String PLACA_BY_A = "att987";
-	
+	 
 	@InjectMocks
 	private EstacionamientoDomainImpl estacionamientoDomain = new EstacionamientoDomainImpl();
 	
@@ -178,39 +178,54 @@ public class EstacionamientoDomainImplTestUnitaria {
 		assertTrue(respuestEsperadaEstacionamientoCarros);
 	}
 	
-	/*
 	@Test
 	public void validarObtencionListaVehiculos() {
+		List<Vehiculo> listaLlena = new ArrayList<>();
+		for (int i = 0; i < 20; i++) {
+			vehiculo.setPlaca(PLACA_CARRO);
+			vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
+			listaLlena.add(vehiculo);
+		}
+		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaLlena);
 		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();		
 		List<VehiculoDTO> listaVehiculosDTOs = estacionamientoDomain.obtenerListaVehiculos();
 		int apuntador = 0;
 		for (Vehiculo vehiculo : listaVehiculos) {
-				VehiculoDTO vehiculoDTO =listaVehiculosDTOs.get(apuntador);
+			VehiculoDTO vehiculoDTO =listaVehiculosDTOs.get(apuntador);
 			assertTrue(vehiculo.getPlaca().equals(vehiculoDTO.getPlaca()));
 			assertTrue(vehiculo.getTipoVehiculo().equals(vehiculoDTO.getTipoVehiculo()));
-			assertTrue(vehiculo.getFechaEntrada().equals(vehiculoDTO.getFechaEntrada()));
 			apuntador += 1;
 		}
 	} 
-	  
+	
 	@Test
 	public void validarObtencionVehiculoByPlaca() { 
+		List<Vehiculo> lista = new ArrayList<>();
+		vehiculo.setPlaca(PLACA_MOTO);
+		vehiculo.setTipoVehiculo(TIPO_VEHICULO_MOTO);
+		lista.add(vehiculo);
+		when(nuevoRepositorio.obtenerVehiculoPorPlacaDB(PLACA_MOTO)).thenReturn(lista);
 		List<Vehiculo> listaVehiculoRepository = nuevoRepositorio.obtenerVehiculoPorPlacaDB(PLACA_MOTO);
 		List<Vehiculo> listaVehiculoEsperado = estacionamientoDomain.obtenerVehiculoByPlaca(PLACA_MOTO);
 		Vehiculo vehiculoRepository = listaVehiculoRepository.get(0);
 		Vehiculo vehiculoEsperado = listaVehiculoEsperado.get(0);
 		assertTrue(vehiculoRepository.getPlaca().equals(vehiculoEsperado.getPlaca()));
 		assertTrue(vehiculoRepository.getTipoVehiculo().equals(vehiculoEsperado.getTipoVehiculo()));
-		assertTrue(vehiculoRepository.getFechaEntrada().equals(vehiculoEsperado.getFechaEntrada()));
 	}
-	 
+
 	@Test
 	public void probarValidacionRegistroSalidaVehiculoPlacaNoExistente() {
-		//vehiculo nulo
+		List<Vehiculo> lista = new ArrayList<>();
+		vehiculo.setPlaca(PLACA_MOTO);
+		vehiculo.setTipoVehiculo(TIPO_VEHICULO_MOTO);
+		lista.add(vehiculo);
+		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(lista);
+		//solo hay una moto, la placa del carro no existe retorna un vehiculo nulo
 		Vehiculo vehiculoEsperado = estacionamientoDomain.registrarSalidaVehiculo(PLACA_CARRO);
 		assertFalse(vehiculo.equals(vehiculoEsperado));
 	}
 	
+	/*
 	@Test
 	public void probarValidacionRegistroSalidaCarro() {
 		//En la base de datos registrar este vehiculo

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" tests="14" skipped="0" failures="0" errors="0" timestamp="2019-01-19T19:03:08" hostname="STID-RODRIGUEZ" time="0.019">
+<testsuite name="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" tests="14" skipped="0" failures="0" errors="0" timestamp="2019-01-19T22:55:28" hostname="STID-RODRIGUEZ" time="0.018">
   <properties/>
   <testcase name="calcularPrecioParqueoMotoCilindrajeAlto" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.002"/>
-  <testcase name="validarCalculoTiempoEstacionamientoMotoDias" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.002"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoDias" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.001"/>
   <testcase name="validarCalculoTiempoEstacionamientoCarroHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="calcularPrecioParqueoMotoDiasHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.001"/>
+  <testcase name="calcularPrecioParqueoMotoDiasHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
   <testcase name="calcularPrecioParqueoMotoHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
   <testcase name="calcularPrecioParqueoMotoDias" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
   <testcase name="calcularPrecioParqueoCarroDias" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
   <testcase name="calcularPrecioParqueoCarroHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
   <testcase name="validarCalculoTiempoEstacionamientoCarroHorasDias" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
-  <testcase name="validarCalculoTiempoEstacionamientoMotoHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.002"/>
-  <testcase name="validarCalculoTiempoEstacionamientoMotoDiasHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.001"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoDiasHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
   <testcase name="calcularPrecioParqueoCarroDiasHoras" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.0"/>
-  <testcase name="validarCalculoTiempoEstacionamientoMotoCilindraje" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.001"/>
-  <testcase name="validarCalculoTiempoEstacionamientoCarroDias" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.001"/>
+  <testcase name="validarCalculoTiempoEstacionamientoMotoCilindraje" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.003"/>
+  <testcase name="validarCalculoTiempoEstacionamientoCarroDias" classname="com.ceiba.estacionamiento.domain.pruebasunitarias.CalculoPrecioDomainImplTestUnitaria" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

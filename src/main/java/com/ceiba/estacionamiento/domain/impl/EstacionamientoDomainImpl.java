@@ -22,7 +22,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	@Override
 	public String ingresarVehiculo(Vehiculo vehiculo){ 
 		Date fechaEntrada = new Date();
-		vehiculo.setFechaEntrada(fechaEntrada);
+		vehiculo.setFechaEntrada(fechaEntrada); 
 		if (validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO)) {
 			if(validarPuestosDisponibles(vehiculo.getTipoVehiculo())) {
 				nuevoRepositorio.registrarVehiculoDB(vehiculo);
