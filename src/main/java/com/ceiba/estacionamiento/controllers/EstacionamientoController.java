@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import com.ceiba.estacionamiento.domain.impl.EstacionamientoDomainImpl;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
-
+ 
 @Path("vehiculos")
 @Consumes(value= MediaType.APPLICATION_JSON)
 @Produces(value = MediaType.APPLICATION_JSON)
@@ -37,7 +37,7 @@ public class EstacionamientoController {
 	}	
 	
 	@PUT
-	@Path("{placa}")
+	@Path("/{placa}")
 	public Response updateVehicle(@PathParam("placa") String placa) {
 		Vehiculo vehiculo = estacionamientoDomainImpl.registrarSalidaVehiculo(placa);
 		if (vehiculo.getPlaca().equals(placa)) {

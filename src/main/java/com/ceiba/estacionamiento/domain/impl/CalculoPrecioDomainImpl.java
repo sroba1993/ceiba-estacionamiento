@@ -7,7 +7,7 @@ import com.ceiba.estacionamiento.model.Vehiculo;
 public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 	
 	static final int TARIFA_HORA_CARRO = 1_000;
-	static final int TARIFA_DIA_CARRO = 8_000;
+	static final int TARIFA_DIA_CARRO = 8_000; 
 	static final int TARIFA_HORA_MOTO = 500;
 	static final int TARIFA_DIA_MOTO = 4_000;
 	static final int TARIFA_CC_EXCEDENTE = 2_000;
@@ -55,7 +55,7 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 			}
 		} 
 		else {
-			valorPagar = cantidadHoras * TARIFA_HORA_CARRO;
+			valorPagar = cantidadHoras * TARIFA_HORA_CARRO; 
 		}
 		return valorPagar;
 	}

@@ -1,4 +1,4 @@
-package com.ceiba.estacionamiento.domain.Impl;
+package com.ceiba.estacionamiento.domain.pruebasunitarias;
 
 import static org.junit.Assert.assertEquals;
 import java.text.ParseException;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.ceiba.estacionamiento.domain.impl.CalculoPrecioDomainImpl;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
-public class CalculoPrecioDomainImplTest {
+public class CalculoPrecioDomainImplTestUnitaria {
 	
 	final static String CARRO = "carro";
 	final static String MOTO = "moto";
@@ -47,7 +47,7 @@ public class CalculoPrecioDomainImplTest {
 	@Test 
 	public void validarCalculoTiempoEstacionamientoCarroDias() throws ParseException {
 		Date fechaEntrada = format.parse("2018-01-16 01:00:00"); 
-		Date fechaSalida = format.parse("2018-01-18 10:00:00"); 
+		Date fechaSalida = format.parse("2018-01-18 12:34:00"); 
 		correrPruebacalculoTiempoEstacionamiento(CARRO,fechaEntrada, fechaSalida,0, 25_000);
 	}
 	
@@ -68,7 +68,7 @@ public class CalculoPrecioDomainImplTest {
 	public void correrPruebacalculoTiempoEstacionamiento(String tipoVehiculo, Date fechaEntrada, Date fechaSalida,int cilindraje, int cobroEsperado) {
 		vehiculo.setTipoVehiculo(tipoVehiculo);
 		vehiculo.setCilindraje(cilindraje);
-		vehiculo.setFechaEntrada(fechaEntrada);
+		vehiculo.setFechaEntrada(fechaEntrada); 
 		vehiculo.setFechaSalida(fechaSalida);
 		Vehiculo vehiculoCalculado = nuevoCobro.calcularTiempoEstacionamiento(vehiculo);
 		assertEquals(vehiculoCalculado.getTotalPagar(), cobroEsperado);
@@ -82,7 +82,7 @@ public class CalculoPrecioDomainImplTest {
 	}
 	
 	@Test
-	public void calcularPrecioParqueoCarroDias() {
+	public void calcularPrecioParqueoCarroDias() { 
 		int precioParqueoEsperado = 16_000;
 		int precioParqueoCalculado = nuevoCobro.calcularPrecioCarro(0,2);		
 		assertEquals(precioParqueoCalculado,precioParqueoEsperado);

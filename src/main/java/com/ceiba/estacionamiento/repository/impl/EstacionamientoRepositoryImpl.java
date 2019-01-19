@@ -27,7 +27,7 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		Query<Vehiculo> queryVehiculos = session.createQuery("from Vehiculo"); 
 		List<Vehiculo> listaVehiculos = queryVehiculos.getResultList();
 		session.getTransaction().commit();  
-		session.close();
+		session.close(); 
 		return listaVehiculos;
 	}
 	

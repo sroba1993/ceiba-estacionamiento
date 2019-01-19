@@ -8,7 +8,7 @@ public interface IEstacionamientoDomain {
 	
 	String ingresarVehiculo(Vehiculo vehiculo);
 	Boolean validarPuestosDisponibles(String tipoVehiculo);
-	Boolean validarIngresoVehiculosByA(String placa);
+	Boolean validarIngresoVehiculosByA(String placa , int diaRestringido, int diaRrestringidoDos);
 	List<VehiculoDTO> obtenerListaVehiculos();
 	List<Vehiculo> obtenerVehiculoByPlaca(String placa);
 	Vehiculo registrarSalidaVehiculo(String placa);
