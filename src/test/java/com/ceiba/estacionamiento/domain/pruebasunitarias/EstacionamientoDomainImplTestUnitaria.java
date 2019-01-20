@@ -86,7 +86,7 @@ public class EstacionamientoDomainImplTestUnitaria {
 		vehiculo.setPlaca(PLACA_BY_A);
 		vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
 		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaVacia);
-		assertFalse(estacionamientoDomain.ingresarVehiculo(vehiculo).equals(respuestaIdeal));
+		assertTrue(estacionamientoDomain.ingresarVehiculo(vehiculo).equals(respuestaIdeal));
 	}
 	
 	@Test
@@ -166,7 +166,7 @@ public class EstacionamientoDomainImplTestUnitaria {
 		int dia = Calendar.MONDAY;
 		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarIngresoVehiculosByA(PLACA_BY_A,diaActualParaPrueba,dia);
 		//retorna true si no es dia habil o la placa no inicia por a
-		assertFalse(respuestEsperadaEstacionamientoCarros);
+		assertTrue(respuestEsperadaEstacionamientoCarros);
 	}
 	
 	@Test

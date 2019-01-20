@@ -74,7 +74,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 		Boolean validacion;
 		Calendar fechaActual = Calendar.getInstance();
 		int diaActual = fechaActual.get(Calendar.DAY_OF_WEEK);
-		if(placa.substring(0,1).equals("a") && diaActual == diaRestringido || diaActual == diaRrestringidoDos) {
+		if(placa.startsWith("a") && (diaActual == diaRestringido || diaActual == diaRrestringidoDos)) {
 			validacion = false;		
 		}
 		else {

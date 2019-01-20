@@ -12,11 +12,11 @@ import javax.ws.rs.core.Response;
 import com.ceiba.estacionamiento.domain.impl.EstacionamientoDomainImpl;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
- 
+
 @Path("vehiculos")
 @Consumes(value= MediaType.APPLICATION_JSON)
 @Produces(value = MediaType.APPLICATION_JSON)
-public class EstacionamientoController {
+public class EstacionamientoController { 
 	
 	private EstacionamientoDomainImpl estacionamientoDomainImpl =new EstacionamientoDomainImpl();
 	
