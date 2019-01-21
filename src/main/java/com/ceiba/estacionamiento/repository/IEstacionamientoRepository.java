@@ -1,7 +1,6 @@
 package com.ceiba.estacionamiento.repository;
 
 import java.util.List;
-import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
 public interface IEstacionamientoRepository {
