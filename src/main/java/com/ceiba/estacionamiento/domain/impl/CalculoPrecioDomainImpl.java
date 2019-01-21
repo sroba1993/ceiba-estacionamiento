@@ -24,7 +24,7 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 		int minutos = (int) (diferenciatiempo/(60 * 1000) % 60); 
 		int horas = (int) (diferenciatiempo/(60 * 60 * 1000) % 24); 
 		int dias= (int) (diferenciatiempo/(24 * 60 * 60 * 1000));  
-		if(horas > 9){
+		if(horas >= 9){
 			dias += 1;
 			horas = 0;
 			if(minutos > 0) {

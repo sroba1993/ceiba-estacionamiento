@@ -32,8 +32,8 @@ public class EstacionamientoController {
 	}
 	
 	@POST
-	public String addVehicle(Vehiculo vehiculo) {
-		return estacionamientoDomainImpl.ingresarVehiculo(vehiculo);
+	public Response addVehicle(Vehiculo vehiculo) {
+		return Response.ok(estacionamientoDomainImpl.ingresarVehiculo(vehiculo)).build();
 	}	
 	
 	@PUT
@@ -46,3 +46,4 @@ public class EstacionamientoController {
 		return Response.noContent().build();
 	}
 }
+ 

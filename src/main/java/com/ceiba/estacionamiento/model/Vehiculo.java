@@ -73,14 +73,6 @@ public class Vehiculo {
 	public void setCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 	}
-
-	public Estacionamiento getEstacionamiento() {
-		return estacionamiento;
-	}
-
-	public void setEstacionamiento(Estacionamiento estacionamiento) {
-		this.estacionamiento = estacionamiento;
-	}
 	
 	public Date getFechaEntrada() {
 		return fechaEntrada;

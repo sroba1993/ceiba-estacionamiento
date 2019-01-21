@@ -37,15 +37,7 @@ public class Estacionamiento {
 		return cantEstacionamientoMotos;
 	}
 
-	public void setCantEstacionamientoMotos(int cantEstacionamientoMotos) {
-		this.cantEstacionamientoMotos = cantEstacionamientoMotos;
-	}
-
 	public int getCantEstacionamientoCarros() {
 		return cantEstacionamientoCarros;
-	}
-
-	public void setCantEstacionamientoCarros(int cantEstacionamientoCarros) {
-		this.cantEstacionamientoCarros = cantEstacionamientoCarros;
 	}
 }

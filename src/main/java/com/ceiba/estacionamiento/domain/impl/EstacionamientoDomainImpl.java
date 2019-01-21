@@ -9,32 +9,37 @@ import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Estacionamiento;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
+import com.ceiba.estacionamiento.util.MensajeRespuesta;
 
 public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 	
 	private static final String MOTO = "moto"; 
-	private static final String CARRO = "carro";
+	private static final String CARRO = "carro"; 
 	private static final int LUNES = Calendar.MONDAY; 
 	private static final int DOMINGO = Calendar.SUNDAY; 
 	private EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 	private Estacionamiento estacionamiento = new Estacionamiento();
+	private MensajeRespuesta mensaje = new MensajeRespuesta();
 	
 	@Override
-	public String ingresarVehiculo(Vehiculo vehiculo){ 
+	public MensajeRespuesta ingresarVehiculo(Vehiculo vehiculo){ 
 		Date fechaEntrada = new Date();
 		vehiculo.setFechaEntrada(fechaEntrada); 
 		if (validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO)) {
 			if(validarPuestosDisponibles(vehiculo.getTipoVehiculo())) {
 				nuevoRepositorio.registrarVehiculoDB(vehiculo);
-				return "Vehiculo registrado";
+				mensaje.setMensaje("Vehiculo registrado");
+				return mensaje;
 			}
 			else {
-				return "Parqueadero lleno";
+				mensaje.setMensaje("Parqueadero lleno");
+				return mensaje;
 			}
 			
 		}
 		else {
-			return "No es un día hábil para ese vehiculo";
+			mensaje.setMensaje("No es un día hábil para ese vehiculo");
+			return mensaje;
 		}
 	}
 	

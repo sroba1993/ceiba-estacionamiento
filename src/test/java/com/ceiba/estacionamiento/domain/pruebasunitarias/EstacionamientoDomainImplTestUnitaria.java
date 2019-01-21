@@ -17,6 +17,7 @@ import com.ceiba.estacionamiento.domain.impl.EstacionamientoDomainImpl;
 import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
+import com.ceiba.estacionamiento.util.MensajeRespuesta;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,7 +27,7 @@ public class EstacionamientoDomainImplTestUnitaria {
 	final static String TIPO_VEHICULO_MOTO = "moto";
 	final static String PLACA_CARRO = "tyo346";
 	final static String TIPO_VEHICULO_CARRO = "carro";
-	final static String PLACA_BY_A = "att987";
+	final static String PLACA_BY_A = "att987"; 
 	 
 	@InjectMocks
 	private EstacionamientoDomainImpl estacionamientoDomain = new EstacionamientoDomainImpl();
@@ -36,20 +37,20 @@ public class EstacionamientoDomainImplTestUnitaria {
 	
 	private Vehiculo vehiculo = new Vehiculo();  
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
+	private MensajeRespuesta mensaje = new MensajeRespuesta();
 	
 	@Test
 	public void validarIngresoMoto() {
 		List<Vehiculo> listaVacia = new ArrayList<>();
-		String respuestaIdeal = "Vehiculo registrado";
-		correrValidacionIngresoVehiculos(respuestaIdeal, TIPO_VEHICULO_MOTO, PLACA_MOTO, listaVacia);
+		mensaje.setMensaje("Vehiculo registrado");
+		correrValidacionIngresoVehiculos(mensaje, TIPO_VEHICULO_MOTO, PLACA_MOTO, listaVacia);
 	}
 	
 	@Test
 	public void validarIngresoCarro() {
 		List<Vehiculo> listaVacia = new ArrayList<>();
-		String respuestaIdeal = "Vehiculo registrado";
-		correrValidacionIngresoVehiculos(respuestaIdeal, TIPO_VEHICULO_CARRO, PLACA_CARRO, listaVacia);
+		mensaje.setMensaje("Vehiculo registrado");
+		correrValidacionIngresoVehiculos(mensaje, TIPO_VEHICULO_CARRO, PLACA_CARRO, listaVacia);
 	}
 	
 	@Test
@@ -58,8 +59,8 @@ public class EstacionamientoDomainImplTestUnitaria {
 		for (int i = 0; i < 20; i++) {
 			listaLlena.add(vehiculo);
 		}
-		String respuestaIdeal = "Parqueadero lleno";
-		correrValidacionIngresoVehiculos(respuestaIdeal, TIPO_VEHICULO_CARRO, PLACA_CARRO, listaLlena);
+		mensaje.setMensaje("Parqueadero lleno");
+		correrValidacionIngresoVehiculos(mensaje, TIPO_VEHICULO_CARRO, PLACA_CARRO, listaLlena);
 	}
 	
 	@Test
@@ -68,25 +69,25 @@ public class EstacionamientoDomainImplTestUnitaria {
 		for (int i = 0; i < 10; i++) {
 			listaLlena.add(vehiculo);
 		}
-		String respuestaIdeal = "Parqueadero lleno";
-		correrValidacionIngresoVehiculos(respuestaIdeal, TIPO_VEHICULO_MOTO, PLACA_MOTO, listaLlena);
+		mensaje.setMensaje("Parqueadero lleno");
+		correrValidacionIngresoVehiculos(mensaje, TIPO_VEHICULO_MOTO, PLACA_MOTO, listaLlena);
 	}
-
-	public void correrValidacionIngresoVehiculos(String respuestaIdeal, String tipovehiculo, String placa, List<Vehiculo> listaVehiculos) {
+	
+	public void correrValidacionIngresoVehiculos(MensajeRespuesta mensaje, String tipovehiculo, String placa, List<Vehiculo> listaVehiculos) {
 		vehiculo.setPlaca(placa);
 		vehiculo.setTipoVehiculo(tipovehiculo);
 		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaVehiculos);
-		assertTrue(estacionamientoDomain.ingresarVehiculo(vehiculo).equals(respuestaIdeal));
+		assertTrue(estacionamientoDomain.ingresarVehiculo(vehiculo).getMensaje().equals(mensaje.getMensaje()));
 	}
 	
 	@Test
 	public void validarIngresoVehiculoDiaNoHabilplacasA() {
 		List<Vehiculo> listaVacia = new ArrayList<>();
-		String respuestaIdeal = "No es un día hábil para ese vehiculo";
+		mensaje.setMensaje("No es un día hábil para ese vehiculo");
 		vehiculo.setPlaca(PLACA_BY_A);
 		vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
 		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaVacia);
-		assertTrue(estacionamientoDomain.ingresarVehiculo(vehiculo).equals(respuestaIdeal));
+		assertTrue(estacionamientoDomain.ingresarVehiculo(vehiculo).getMensaje().equals(mensaje.getMensaje()));
 	}
 	
 	@Test
@@ -225,38 +226,52 @@ public class EstacionamientoDomainImplTestUnitaria {
 		assertFalse(vehiculo.equals(vehiculoEsperado));
 	}
 	
-	/*
+	
 	@Test
 	public void probarValidacionRegistroSalidaCarro() {
 		//En la base de datos registrar este vehiculo
-		vehiculo.setPlaca("eds123");
-		vehiculo.setTipoVehiculo("carro");
+		List<Vehiculo> listaVehiculos= new ArrayList<>();
+		listaVehiculos.add(vehiculo);
+		for (int i = 0; i < 10; i++) {
+			vehiculo.setPlaca(PLACA_CARRO);
+			vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
+			listaVehiculos.add(vehiculo);
+		}
+		vehiculo.setPlaca("gds123");
+		vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
 		try {
 			vehiculo.setFechaEntrada(format.parse("2019-01-18 14:57:38"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		correrTestResgistroSalidaVehiculos("eds123", vehiculo);
+		correrTestResgistroSalidaVehiculos("gds123", vehiculo, listaVehiculos);
 	}
 	
 	@Test
 	public void probarValidacionRegistroSalidaMoto() {
 		//En la base de datos registrar este vehiculo
+		List<Vehiculo> listaVehiculos= new ArrayList<>();
+		listaVehiculos.add(vehiculo);
+		for (int i = 0; i < 5; i++) {
+			vehiculo.setPlaca(PLACA_MOTO);
+			vehiculo.setTipoVehiculo(TIPO_VEHICULO_MOTO);
+			listaVehiculos.add(vehiculo);
+		}
 		vehiculo.setPlaca("mxl34j");
-		vehiculo.setTipoVehiculo("moto");
+		vehiculo.setTipoVehiculo(TIPO_VEHICULO_MOTO);
 		try {
 			vehiculo.setFechaEntrada(format.parse("2019-01-18 14:58:40"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		correrTestResgistroSalidaVehiculos("mxl34j", vehiculo);
+		correrTestResgistroSalidaVehiculos("mxl34j", vehiculo, listaVehiculos);
 	}
-				
-	public void correrTestResgistroSalidaVehiculos(String placaAverificar, Vehiculo vehiculoModelo) { 
+			
+	public void correrTestResgistroSalidaVehiculos(String placaAverificar, Vehiculo vehiculoModelo, List<Vehiculo> listaVehiculos) { 
+		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaVehiculos);
 		Vehiculo vehiculoEsperado = estacionamientoDomain.registrarSalidaVehiculo(placaAverificar);
 		assertTrue(vehiculoModelo.getPlaca().equals(vehiculoEsperado.getPlaca()));
 	}
-	*/
 }
