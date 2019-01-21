@@ -163,11 +163,11 @@ public class EstacionamientoDomainImplTestUnitaria {
 	
 	@Test
 	public void validarIngresoVehiculosByA() {
-		int diaActualParaPrueba = Calendar.SATURDAY;
+		int diaActualParaPrueba = Calendar.SUNDAY;
 		int dia = Calendar.MONDAY;
 		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarIngresoVehiculosByA(PLACA_BY_A,diaActualParaPrueba,dia);
 		//retorna true si no es dia habil o la placa no inicia por a
-		assertTrue(respuestEsperadaEstacionamientoCarros);
+		assertFalse(respuestEsperadaEstacionamientoCarros);
 	}
 	
 	@Test
