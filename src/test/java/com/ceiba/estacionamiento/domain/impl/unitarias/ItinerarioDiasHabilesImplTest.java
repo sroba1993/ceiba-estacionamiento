@@ -16,7 +16,7 @@ import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ValidacionesIngresoVehiculoImplTest {
+public class ItinerarioDiasHabilesImplTest {
 	
 	final static String PLACA_MOTO = "lwq12t";
 	final static String TIPO_VEHICULO_MOTO = "moto";

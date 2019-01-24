@@ -23,6 +23,7 @@ import org.mockito.InjectMocks;
 import com.ceiba.estacionamiento.controller.error.EstacionamientoExcepcion;
 import com.ceiba.estacionamiento.domain.IEstacionamientoDomain;
 import com.ceiba.estacionamiento.domain.impl.EstacionamientoDomainImpl;
+import com.ceiba.estacionamiento.domain.impl.ItinerarioDiasHabilesImpl;
 import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
@@ -43,6 +44,7 @@ public class EstacionamientoDomainImplTestUnitaria {
 
 	@Mock
 	private IEstacionamientoRepository estacionamientoRepository;
+	private ItinerarioDiasHabilesImpl itinerario;
 
 	@Before
 	public void setUp() {
@@ -52,34 +54,13 @@ public class EstacionamientoDomainImplTestUnitaria {
 	private Vehiculo vehiculo = new Vehiculo();  
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	
-	@Test
-	public void validarIngresoMoto() {
-		correrValidacionIngresoVehiculos(TIPO_VEHICULO_MOTO, PLACA_MOTO);
-	}
-	
-	@Test
-	public void validarIngresoCarro() {
-		correrValidacionIngresoVehiculos(TIPO_VEHICULO_CARRO, PLACA_CARRO);
-	}
-	
-	public void correrValidacionIngresoVehiculos(String tipovehiculo, String placa) {
-		List<Vehiculo> listaVacia = new ArrayList<>();
-		vehiculo.setPlaca(placa);
-		vehiculo.setTipoVehiculo(tipovehiculo);
-		when(estacionamientoRepository.obtenerVehiculosDB()).thenReturn(listaVacia);
-		estacionamientoDomain.ingresarVehiculo(vehiculo);
-		assertTrue();
-	}
-	/*
 	@Test
 	public void validarIngresoCarroEstacionamientoLleno() {
 		List<Vehiculo> listaLlena = new ArrayList<>();
 		for (int i = 0; i < 20; i++) {
 			listaLlena.add(vehiculo);
 		}
-		mensaje.setMensaje("Parqueadero lleno");
-		correrValidacionIngresoVehiculos(mensaje, TIPO_VEHICULO_CARRO, PLACA_CARRO, listaLlena);
+		correrValidacionIngresoVehiculos(TIPO_VEHICULO_CARRO, PLACA_CARRO, listaLlena);
 	}
 	
 	@Test
@@ -88,45 +69,20 @@ public class EstacionamientoDomainImplTestUnitaria {
 		for (int i = 0; i < 10; i++) {
 			listaLlena.add(vehiculo);
 		}
-		mensaje.setMensaje("Parqueadero lleno");
-		correrValidacionIngresoVehiculos(mensaje, TIPO_VEHICULO_MOTO, PLACA_MOTO, listaLlena);
+		correrValidacionIngresoVehiculos(TIPO_VEHICULO_MOTO, PLACA_MOTO, listaLlena);
 	}
 	
-	public void correrValidacionIngresoVehiculos(MensajeRespuesta mensaje, String tipovehiculo, String placa, List<Vehiculo> listaVehiculos) {
+	public void correrValidacionIngresoVehiculos(String tipovehiculo, String placa, List<Vehiculo> listaVehiculos) {
 		vehiculo.setPlaca(placa);
 		vehiculo.setTipoVehiculo(tipovehiculo);
-		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaVehiculos);
-		assertTrue(estacionamientoDomain.ingresarVehiculo(vehiculo).getMensaje().equals(mensaje.getMensaje()));
-	}
-	
-	@Test
-	public void validarIngresoVehiculoDiaNoHabilplacasA() {
-		List<Vehiculo> listaVacia = new ArrayList<>();
-		vehiculo.setPlaca(PLACA_BY_A);
-		vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
-		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaVacia);
-		when(nuevoRepositorio.obtenerVehiculosDB()).thenReturn(listaVacia);
-		assertTrue(estacionamientoDomain.ingresarVehiculo(vehiculo).getMensaje().equals(mensaje.getMensaje()));
-	}
-	*/
-	/*
-	@Test
-	public void validarPuestosDisponiblesMotos() {
-		List<Vehiculo> listaVacia = new ArrayList<>();
-		correrValidacionPuestosDisponibles(listaVacia, TIPO_VEHICULO_MOTO);
-	}
-	 
-	@Test
-	public void validarPuestosDisponiblesCarros() {
-		List<Vehiculo> listaVacia = new ArrayList<>();
-		correrValidacionPuestosDisponibles(listaVacia, TIPO_VEHICULO_CARRO);
-	}
-	
-	public void correrValidacionPuestosDisponibles(List<Vehiculo> listaVehiculos, String tipoVehiculo) {
 		when(estacionamientoRepository.obtenerVehiculosDB()).thenReturn(listaVehiculos);
-		assertTrue(estacionamientoDomain.validarPuestosDisponibles(tipoVehiculo));
+		try {
+			estacionamientoDomain.ingresarVehiculo(vehiculo);
+		} catch (Exception e) {
+			assertTrue(e.getMessage().equals("Estacionamiento lleno"));
+		}
 	}
-	*/
+	
 	@Test
 	public void validarPuestosLlenosMotos() {
 		List<Vehiculo> listaLlena = new ArrayList<>();
