@@ -1,10 +1,9 @@
 package com.ceiba.estacionamiento.domain.impl;
 
 import java.util.Date;
-import com.ceiba.estacionamiento.domain.ICalculoprecioDomain;
 import com.ceiba.estacionamiento.model.Vehiculo;
 
-public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
+public class CalculoPrecioDomainImpl {
 	
 	static final int TARIFA_HORA_CARRO = 1_000;
 	static final int TARIFA_DIA_CARRO = 8_000; 
@@ -16,7 +15,6 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 	private static final String CARRO = "carro";
 	int valorPagar; 
 	
-	@Override
 	public Vehiculo calcularTiempoEstacionamiento(Vehiculo vehiculo) {
 		Date fechaEntrada = vehiculo.getFechaEntrada();
 		Date fechaSalida = vehiculo.getFechaSalida();
@@ -25,10 +23,10 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 		int horas = (int) (diferenciatiempo/(60 * 60 * 1000) % 24); 
 		int dias= (int) (diferenciatiempo/(24 * 60 * 60 * 1000));  
 		if(horas >= 9){
-			dias += 1;
+			dias += 1; 
 			horas = 0;
 			if(minutos > 0) {
-				horas = 1;
+				horas += 1;
 			}
 		}
 		else if(minutos > 0) {
@@ -46,7 +44,6 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 		return vehiculo;
 	}
 
-	@Override
 	public int calcularPrecioCarro(int cantidadHoras, int cantidadDias) {
 		if (cantidadDias > 0) {
 			valorPagar = cantidadDias * TARIFA_DIA_CARRO;
@@ -60,7 +57,7 @@ public class CalculoPrecioDomainImpl implements ICalculoprecioDomain{
 		return valorPagar;
 	}
 	
-	@Override
+	
 	public int calcularPrecioMoto(int cantidadHoras, int cantidadDias, int cilindraje) {
 		if (cantidadDias > 0) {
 			valorPagar = cantidadDias * TARIFA_DIA_MOTO;

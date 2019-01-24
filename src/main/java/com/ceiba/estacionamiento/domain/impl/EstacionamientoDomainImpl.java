@@ -4,94 +4,48 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ceiba.estacionamiento.controller.error.EstacionamientoExcepcion;
 import com.ceiba.estacionamiento.domain.IEstacionamientoDomain;
 import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Estacionamiento;
 import com.ceiba.estacionamiento.model.Vehiculo;
-import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
-import com.ceiba.estacionamiento.util.MensajeRespuesta;
+import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
 
-public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
+@Service
+public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	
 	private static final String MOTO = "moto"; 
 	private static final String CARRO = "carro"; 
 	private static final int LUNES = Calendar.MONDAY; 
 	private static final int DOMINGO = Calendar.SUNDAY; 
-	private EstacionamientoRepositoryImpl nuevoRepositorio = new EstacionamientoRepositoryImpl();
 	private Estacionamiento estacionamiento = new Estacionamiento();
-	private MensajeRespuesta mensaje = new MensajeRespuesta();
+	private ItinerarioDiasHabilesImpl validacionDiasHabiles = new ItinerarioDiasHabilesImpl();
 	
-	@Override
-	public MensajeRespuesta ingresarVehiculo(Vehiculo vehiculo){ 
-		Date fechaEntrada = new Date();
-		vehiculo.setFechaEntrada(fechaEntrada); 
-		if (validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO)) {
-			if(validarPuestosDisponibles(vehiculo.getTipoVehiculo())) {
-				nuevoRepositorio.registrarVehiculoDB(vehiculo);
-				mensaje.setMensaje("Vehiculo registrado");
-				return mensaje;
-			}
-			else {
-				mensaje.setMensaje("Parqueadero lleno");
-				return mensaje;
-			}
-			
-		}
-		else {
-			mensaje.setMensaje("No es un día hábil para ese vehiculo");
-			return mensaje;
-		}
-	}
+	@Autowired
+	private final IEstacionamientoRepository estacionamientoRepository;
 	
-	@Override
-	public Boolean validarPuestosDisponibles(String tipoVehiculo) {
-		Boolean validacion;
-		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();
-		int contadorPuestosOcupados = 0;
-		for (Vehiculo vehiculo : listaVehiculos) {
-			if(vehiculo.getTipoVehiculo().equals(tipoVehiculo)  && vehiculo.getFechaSalida() == null) {
-				contadorPuestosOcupados += 1;
-			}		
-		} 
-		if (validarCantPuestosVehiculos(contadorPuestosOcupados, tipoVehiculo)) {
-			validacion = true;
-		}
-		else {
-			validacion = false;
-		}
-		return validacion;
-	}
-	 
-	public Boolean validarCantPuestosVehiculos(int cantidadVehiculos, String tipoVehiculo) {
-		Boolean validacion;
-		if (cantidadVehiculos < estacionamiento.getCantEstacionamientoCarros() && tipoVehiculo.equals(CARRO)
-				|| (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO))) {
-			validacion = true;
-		}
-		else {
-			validacion = false;
-		}
-		return validacion;
-	}
-	
-	@Override
-	public Boolean validarIngresoVehiculosByA(String placa , int diaRestringido, int diaRrestringidoDos) {
-		Boolean validacion;
-		Calendar fechaActual = Calendar.getInstance();
-		int diaActual = fechaActual.get(Calendar.DAY_OF_WEEK);
-		if(placa.startsWith("a") && (diaActual == diaRestringido || diaActual == diaRrestringidoDos)) {
-			validacion = false;		
-		}
-		else {
-			validacion = true;
-		}
-		return validacion;
+	public EstacionamientoDomainImpl(IEstacionamientoRepository estacionamientoRepository) {
+		this.estacionamientoRepository = estacionamientoRepository;
 	}
 
-	@Override
+	@Transactional
+	public void ingresarVehiculo(Vehiculo vehiculo){ 
+		Date fechaEntrada = new Date();
+		vehiculo.setFechaEntrada(fechaEntrada); 
+		validarPlacaExistenteEstacionamiento(vehiculo.getPlaca());
+		validacionDiasHabiles.validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO);
+		validarPuestosDisponibles(vehiculo.getTipoVehiculo());
+		estacionamientoRepository.registrarVehiculoDB(vehiculo);	
+	}
+
+	@Transactional
 	public List<VehiculoDTO> obtenerListaVehiculos(){
 		List<Vehiculo> listaVehiculosFiltrados = new ArrayList<>();
-		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();
+		List<Vehiculo> listaVehiculos = estacionamientoRepository.obtenerVehiculosDB();
 		for (Vehiculo vehiculo : listaVehiculos) {
 			if(vehiculo.getTotalPagar() == 0  && vehiculo.getFechaSalida() == null) {
 				listaVehiculosFiltrados.add(vehiculo);
@@ -100,23 +54,44 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain{
 		return VehiculoDTO.vehiculoDTO(listaVehiculosFiltrados);
 	}
 	
-	@Override
-	public List<Vehiculo> obtenerVehiculoByPlaca(String placa){
-		return nuevoRepositorio.obtenerVehiculoPorPlacaDB(placa);
-	}
-	
-	@Override
+	@Transactional
 	public Vehiculo registrarSalidaVehiculo(String placa) {
-		List<Vehiculo> listaVehiculosActivos = nuevoRepositorio.obtenerVehiculosDB();
+		List<Vehiculo> listaVehiculosActivos = estacionamientoRepository.obtenerVehiculosDB();
 		for (Vehiculo vehiculo : listaVehiculosActivos) {
 			if (vehiculo.getPlaca().equals(placa) && vehiculo.getFechaSalida() == null) {
 				Date fechaSalida = new Date();
 				vehiculo.setFechaSalida(fechaSalida);
 				Vehiculo vehiculoParaSalir = new CalculoPrecioDomainImpl().calcularTiempoEstacionamiento(vehiculo);
-				nuevoRepositorio.actualizarVehiculoDB(vehiculoParaSalir);
+				estacionamientoRepository.actualizarVehiculoDB(vehiculoParaSalir);
 				return vehiculoParaSalir;
 			}
-		}	
-		return null;
+		} 	 
+		throw new EstacionamientoExcepcion("Ese vehiculo No se encuentra en el parqueadero");
+	}
+	
+	@Transactional
+	public List<Vehiculo> obtenerVehiculoByPlaca(String placa){
+		return estacionamientoRepository.obtenerVehiculoPorPlacaDB(placa);
+	}
+	
+	public void validarPuestosDisponibles(String tipoVehiculo) {
+		List<Vehiculo> listaVehiculos = estacionamientoRepository.obtenerVehiculosDB();
+		int cantidadVehiculos = 0;
+		for (Vehiculo vehiculo : listaVehiculos) {
+			if(vehiculo.getTipoVehiculo().equals(tipoVehiculo)  && vehiculo.getFechaSalida() == null) {
+				cantidadVehiculos += 1;
+			}		
+		} 
+		if (!(cantidadVehiculos < estacionamiento.getCantEstacionamientoCarros() && tipoVehiculo.equals(CARRO)
+				|| (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO)))) {
+			throw new EstacionamientoExcepcion("Estacionamiento lleno");
+		}
 	} 
+	
+	public void validarPlacaExistenteEstacionamiento(String placa) {
+		List<Vehiculo> vehiculoExistente = estacionamientoRepository.obtenerVehiculoPorPlacaDB(placa);
+		if (!(vehiculoExistente.isEmpty())) {
+			throw new EstacionamientoExcepcion("Ese vehiculo ya aparece activo en el estacionamiento");
+		}
+	}
 }

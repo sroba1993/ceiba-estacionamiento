@@ -3,25 +3,26 @@ package com.ceiba.estacionamiento.repository.impl;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
 import com.ceiba.estacionamiento.util.HibernateUtil;
 
-public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository{
+@Repository
+public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository {
 	
-	@Override
-	public void registrarVehiculoDB(Vehiculo vehiculo){
-		
+	@Transactional
+	public void registrarVehiculoDB(Vehiculo vehiculo){	
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(vehiculo);
 		session.getTransaction().commit();  
 		session.close();
-	} 
+	}  
 	
-	@Override
+	@Transactional
 	public List<Vehiculo> obtenerVehiculosDB(){
-		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query<Vehiculo> queryVehiculos = session.createQuery("from Vehiculo"); 
@@ -31,7 +32,7 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		return listaVehiculos;
 	}
 	
-	@Override
+	@Transactional
 	public List<Vehiculo> obtenerVehiculoPorPlacaDB(String placa){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -45,7 +46,7 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		return vehiculo;
 	}
 	
-	@Override
+	@Transactional
 	public void actualizarVehiculoDB(Vehiculo vehiculo){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
