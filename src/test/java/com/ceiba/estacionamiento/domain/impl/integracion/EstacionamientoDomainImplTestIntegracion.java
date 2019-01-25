@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
 import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
+import com.ceiba.estacionamiento.util.HibernateUtil;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EstacionamientoSpringApplication.class)
@@ -47,71 +49,56 @@ public class EstacionamientoDomainImplTestIntegracion {
 	public void setUp() {
 		estacionamientoDomain = new EstacionamientoDomainImpl(estacionamientoRepository);
 	}
+	/*
+	@Test
+	@Rollback(true)
+	public void validarIngresoMotoBasesDatosVacia() {
+		correrValidacionIngresoVehiculosEstacionamientoVacio(TIPO_VEHICULO_MOTO, PLACA_MOTO);
+	}
 	
 	@Test
 	@Rollback(true)
+	public void validarIngresoCarroBasesDatosVacia() {
+		correrValidacionIngresoVehiculosEstacionamientoVacio(TIPO_VEHICULO_CARRO, PLACA_CARRO);
+	}
+	
+	public void correrValidacionIngresoVehiculosEstacionamientoVacio(String tipovehiculo, String placa) {
+		vehiculoTest.setPlaca(placa);
+		vehiculoTest.setTipoVehiculo(tipovehiculo);
+		Vehiculo vehiculoRegistrado = estacionamientoDomain.ingresarVehiculo(vehiculoTest);
+		assertTrue(vehiculoRegistrado.equals(vehiculoTest));
+	}
+	*/
+	@Test
 	public void validarIngresoMotoBasesDatosLlena() {
 		Vehiculo vehiculo = new Vehiculo();
 		for (int i = 0; i < 10; i++) {
-			vehiculo.setPlaca(PLACA_MOTO);
+			vehiculo.setPlaca("test");
 			vehiculo.setTipoVehiculo(TIPO_VEHICULO_MOTO);
 			estacionamientoRepository.registrarVehiculoDB(vehiculo);
 		}
-		correrValidacionIngresoVehiculos(PLACA_MOTO, TIPO_VEHICULO_MOTO);
+		correrValidacionIngresoVehiculosEstacionamientoLleno(PLACA_MOTO, TIPO_VEHICULO_MOTO);
 	}
-	
+	/*
 	@Test
-	@Rollback(true)
 	public void validarIngresoCarroBasesDatosLlena() {
 		Vehiculo vehiculo = new Vehiculo();
 		for (int i = 0; i < 20; i++) {
-			vehiculo.setPlaca(PLACA_CARRO);
+			vehiculo.setPlaca("hgl234");
 			vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
 			estacionamientoRepository.registrarVehiculoDB(vehiculo);
 		}
-		correrValidacionIngresoVehiculos(PLACA_CARRO, TIPO_VEHICULO_CARRO);
+		correrValidacionIngresoVehiculosEstacionamientoLleno(PLACA_CARRO, TIPO_VEHICULO_CARRO);
 	}
-	
-	public void correrValidacionIngresoVehiculos(String placa, String tipovehiculo) {
+	*/
+	public void correrValidacionIngresoVehiculosEstacionamientoLleno(String placa, String tipovehiculo) {
 		try {
 			vehiculoTest.setPlaca(placa);
 			vehiculoTest.setTipoVehiculo(tipovehiculo);
 			estacionamientoDomain.ingresarVehiculo(vehiculoTest);
-		} catch (RuntimeException e) {	
+		} catch (RuntimeException e) {
 			assertTrue(e.getMessage().equals("Estacionamiento lleno"));
 		}
-	}
-	
-	/*
-	@Test
-	public void validarIngresoCarroBasesDatosLlena() {
-		
-		try {
-			estacionamientoDomain.validarPuestosDisponibles(TIPO_VEHICULO_CARRO);
-		} catch (RuntimeException e) {	
-			assertFalse(e.getMessage().equals("Estacionamiento lleno"));
-		}
-	}	
-	
-	@Test
-	@Transactional
-	public void validarIngresoMotoBasesDatosVacia() {
-		correrValidacionIngresoVehiculos(TIPO_VEHICULO_MOTO, PLACA_MOTO);
-	}
-	
-	@Test
-	@Transactional
-	public void validarIngresoCarroBasesDatosVacia() {
-		correrValidacionIngresoVehiculos(TIPO_VEHICULO_CARRO, PLACA_CARRO);
-	}
-	
-	public void correrValidacionIngresoVehiculos(String tipovehiculo, String placa) {
-		vehiculoTest.setPlaca(placa);
-		vehiculoTest.setTipoVehiculo(tipovehiculo);
-		estacionamientoDomain.ingresarVehiculo(vehiculoTest);
-		List<Vehiculo> vehiculoRegistrado = estacionamientoRepository.obtenerVehiculoPorPlacaDB(placa);
-		assertTrue(vehiculoRegistrado.get(0).getPlaca().equals(placa));
-		//assertTrue(respuestaEsperada.equals(respuestaFalsa));
 	}
 	
 	/*
