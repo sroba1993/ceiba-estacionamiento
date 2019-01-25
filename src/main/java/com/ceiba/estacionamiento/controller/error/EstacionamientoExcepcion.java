@@ -15,3 +15,4 @@ public class EstacionamientoExcepcion extends WebApplicationException {
 		super(message, Response.status(400).entity(message).type(MediaType.APPLICATION_JSON).build());
 	}
 }
+ 

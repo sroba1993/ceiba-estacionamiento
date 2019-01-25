@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.ceiba.estacionamiento.controller.error.EstacionamientoExcepcion;
 import com.ceiba.estacionamiento.domain.IEstacionamientoDomain;
 import com.ceiba.estacionamiento.dto.VehiculoDTO;
@@ -19,7 +18,7 @@ import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
 public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	
 	private static final String MOTO = "moto"; 
-	private static final String CARRO = "carro"; 
+	private static final String CARRO = "carro";  
 	private static final int LUNES = Calendar.MONDAY; 
 	private static final int DOMINGO = Calendar.SUNDAY; 
 	private Estacionamiento estacionamiento = new Estacionamiento();
@@ -39,7 +38,8 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 		validarPlacaExistenteEstacionamiento(vehiculo.getPlaca());
 		validacionDiasHabiles.validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO);
 		validarPuestosDisponibles(vehiculo.getTipoVehiculo());
-		estacionamientoRepository.registrarVehiculoDB(vehiculo);	
+		estacionamientoRepository.registrarVehiculoDB(vehiculo);
+		throw new EstacionamientoExcepcion("Vehiculo registrado");
 	}
 
 	@Transactional
@@ -53,7 +53,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 		}
 		return VehiculoDTO.vehiculoDTO(listaVehiculosFiltrados);
 	}
-	
+	 
 	@Transactional
 	public Vehiculo registrarSalidaVehiculo(String placa) {
 		List<Vehiculo> listaVehiculosActivos = estacionamientoRepository.obtenerVehiculosDB();
@@ -86,7 +86,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 				|| (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO)))) {
 			throw new EstacionamientoExcepcion("Estacionamiento lleno");
 		}
-	} 
+	}  
 	
 	public void validarPlacaExistenteEstacionamiento(String placa) {
 		List<Vehiculo> vehiculoExistente = estacionamientoRepository.obtenerVehiculoPorPlacaDB(placa);

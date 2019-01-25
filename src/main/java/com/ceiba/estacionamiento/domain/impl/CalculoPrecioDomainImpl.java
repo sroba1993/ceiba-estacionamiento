@@ -5,7 +5,7 @@ import com.ceiba.estacionamiento.model.Vehiculo;
 
 public class CalculoPrecioDomainImpl {
 	
-	static final int TARIFA_HORA_CARRO = 1_000;
+	static final int TARIFA_HORA_CARRO = 1_000; 
 	static final int TARIFA_DIA_CARRO = 8_000; 
 	static final int TARIFA_HORA_MOTO = 500;
 	static final int TARIFA_DIA_MOTO = 4_000;

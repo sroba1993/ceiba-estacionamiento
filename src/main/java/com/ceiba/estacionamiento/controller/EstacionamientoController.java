@@ -19,7 +19,7 @@ import com.ceiba.estacionamiento.model.Vehiculo;
 @Produces(value = "application/json")
 public class EstacionamientoController {
 	
-	@Autowired
+	@Autowired 
 	private IEstacionamientoDomain estacionamientoDomain;
 	
 	@GET
