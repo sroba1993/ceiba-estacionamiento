@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.constraints.AssertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,22 +55,23 @@ public class EstacionamientoDomainImplTestUnitaria {
 	}
 	
 	public void correrValidacionIngresoVehiculos(String tipovehiculo, String placa) {
-		List<Vehiculo> listaVacia = new ArrayList<>();
+		List<Vehiculo> listaVehiculo = new ArrayList<>();
 		vehiculo.setPlaca(placa);
 		vehiculo.setTipoVehiculo(tipovehiculo);
-		when(estacionamientoRepository.obtenerVehiculosDB()).thenReturn(listaVacia);
-		try {
-			estacionamientoDomain.ingresarVehiculo(vehiculo);
-		} catch (Exception e) {
-			assertTrue(e.getMessage().equals("Vehiculo registrado"));
-		}
+		listaVehiculo.add(vehiculo);
+		when(estacionamientoRepository.obtenerVehiculoPorPlacaDB(placa)).thenReturn(listaVehiculo);
+		Vehiculo vehiculoIngresado = estacionamientoDomain.ingresarVehiculo(vehiculo);
+		assertTrue(vehiculoIngresado.equals(vehiculo));
 	}
 	
 	@Test
 	public void validarIngresoCarroEstacionamientoLleno() {
 		List<Vehiculo> listaLlena = new ArrayList<>();
+		Vehiculo vehiculoTest = new Vehiculo();
 		for (int i = 0; i < 20; i++) {
-			listaLlena.add(vehiculo);
+			vehiculoTest.setPlaca("eee000");
+			vehiculoTest.setTipoVehiculo(TIPO_VEHICULO_CARRO);
+			listaLlena.add(vehiculoTest);
 		}
 		correrValidacionIngresoVehiculosEstacionamientoLleno(TIPO_VEHICULO_CARRO, PLACA_CARRO, listaLlena);
 	}
@@ -75,8 +79,11 @@ public class EstacionamientoDomainImplTestUnitaria {
 	@Test
 	public void validarIngresoMotoEstacionamientoLleno() {
 		List<Vehiculo> listaLlena = new ArrayList<>();
+		Vehiculo vehiculoTest = new Vehiculo();
 		for (int i = 0; i < 10; i++) {
-			listaLlena.add(vehiculo);
+			vehiculoTest.setPlaca("eee00e");
+			vehiculoTest.setTipoVehiculo(TIPO_VEHICULO_MOTO);
+			listaLlena.add(vehiculoTest);
 		}
 		correrValidacionIngresoVehiculosEstacionamientoLleno(TIPO_VEHICULO_MOTO, PLACA_MOTO, listaLlena);
 	}
@@ -98,7 +105,7 @@ public class EstacionamientoDomainImplTestUnitaria {
 		vehiculo.setPlaca(PLACA_CARRO);
 		vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
 		listaVehiculos.add(vehiculo);
-		when(estacionamientoRepository.obtenerVehiculoPorPlacaDB(PLACA_CARRO)).thenReturn(listaVehiculos);
+		when(estacionamientoRepository.obtenerVehiculosDB()).thenReturn(listaVehiculos);
 		try {
 			estacionamientoDomain.validarPlacaExistenteEstacionamiento(PLACA_CARRO);
 		} catch (EstacionamientoExcepcion e) {

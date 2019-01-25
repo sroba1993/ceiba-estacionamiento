@@ -26,7 +26,7 @@ public class EstacionamientoController {
 	public Response findAllVehicles() {	
 		return Response.ok(estacionamientoDomain.obtenerListaVehiculos()).build();	
 	}
-	
+	 
 	@GET
 	@Path("/{placa}")
 	public Response findVehicle(@PathParam("placa") String placa) {
@@ -35,8 +35,7 @@ public class EstacionamientoController {
 	
 	@POST
 	public Response addVehicle(Vehiculo vehiculo) {
-		estacionamientoDomain.ingresarVehiculo(vehiculo);
-		return Response.ok().build();
+		return Response.ok(estacionamientoDomain.ingresarVehiculo(vehiculo)).build();
 	}	
 	
 	@PUT

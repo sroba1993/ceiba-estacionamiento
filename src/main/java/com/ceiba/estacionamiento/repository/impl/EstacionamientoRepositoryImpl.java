@@ -20,7 +20,7 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		session.getTransaction().commit();  
 		session.close();
 	}  
-	
+	 
 	@Transactional
 	public List<Vehiculo> obtenerVehiculosDB(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -38,7 +38,7 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		session.beginTransaction();
 		
 		@SuppressWarnings("unchecked")
-		Query<Vehiculo> queryVehiculo = session.createQuery("from Vehiculo where placa = :placa"); 
+		Query<Vehiculo> queryVehiculo = session.createQuery("from Vehiculo where placa =:placa and fechaSalida is null"); 
 		queryVehiculo.setParameter("placa", placa);
 		List<Vehiculo> vehiculo = queryVehiculo.getResultList();
 		session.getTransaction().commit();  
@@ -53,5 +53,5 @@ public class EstacionamientoRepositoryImpl implements IEstacionamientoRepository
 		session.update(vehiculo);
 		session.getTransaction().commit();  
 		session.close();
-	}  
+	}   
 }

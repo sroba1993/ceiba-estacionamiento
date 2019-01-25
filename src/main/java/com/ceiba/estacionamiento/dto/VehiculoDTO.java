@@ -33,7 +33,7 @@ public class VehiculoDTO {
 			vehiculoDTO.setFechaEntrada(vehiculo.getFechaEntrada());
 			vehiculoDTOs.add(vehiculoDTO);
 		}
-			return vehiculoDTOs;
+			return vehiculoDTOs; 
 	}
 
 	public String getPlaca() {

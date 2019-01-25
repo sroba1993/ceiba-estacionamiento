@@ -32,15 +32,16 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	}
 
 	@Transactional
-	public void ingresarVehiculo(Vehiculo vehiculo){ 
+	public Vehiculo ingresarVehiculo(Vehiculo vehiculo){ 
 		Date fechaEntrada = new Date();
 		vehiculo.setFechaEntrada(fechaEntrada); 
 		validarPlacaExistenteEstacionamiento(vehiculo.getPlaca());
 		validacionDiasHabiles.validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO);
 		validarPuestosDisponibles(vehiculo.getTipoVehiculo());
 		estacionamientoRepository.registrarVehiculoDB(vehiculo);
-		throw new EstacionamientoExcepcion("Vehiculo registrado");
-	}
+		List<Vehiculo> vehiculoDB = estacionamientoRepository.obtenerVehiculoPorPlacaDB(vehiculo.getPlaca());
+		return vehiculoDB.get(0); 
+	}  
 
 	@Transactional
 	public List<VehiculoDTO> obtenerListaVehiculos(){
@@ -89,9 +90,11 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	}  
 	
 	public void validarPlacaExistenteEstacionamiento(String placa) {
-		List<Vehiculo> vehiculoExistente = estacionamientoRepository.obtenerVehiculoPorPlacaDB(placa);
-		if (!(vehiculoExistente.isEmpty())) {
-			throw new EstacionamientoExcepcion("Ese vehiculo ya aparece activo en el estacionamiento");
+		List<Vehiculo> listaVehiculosDB = estacionamientoRepository.obtenerVehiculosDB();
+		for (Vehiculo vehiculoDB : listaVehiculosDB) {
+			if(vehiculoDB.getPlaca().equals(placa) && vehiculoDB.getFechaSalida() == null) {
+				throw new EstacionamientoExcepcion("Ese vehiculo ya aparece activo en el estacionamiento");
+			}
 		}
 	}
 }

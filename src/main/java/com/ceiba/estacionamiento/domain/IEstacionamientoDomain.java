@@ -6,7 +6,7 @@ import com.ceiba.estacionamiento.model.Vehiculo;
 
 public interface IEstacionamientoDomain {
 	
-	void ingresarVehiculo(Vehiculo vehiculo);
+	Vehiculo ingresarVehiculo(Vehiculo vehiculo);
 	List<VehiculoDTO> obtenerListaVehiculos();
 	List<Vehiculo> obtenerVehiculoByPlaca(String placa);
 	Vehiculo registrarSalidaVehiculo(String placa);
