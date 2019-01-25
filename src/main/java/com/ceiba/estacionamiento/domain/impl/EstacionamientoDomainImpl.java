@@ -1,6 +1,5 @@
 package com.ceiba.estacionamiento.domain.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +29,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	public EstacionamientoDomainImpl(IEstacionamientoRepository estacionamientoRepository) {
 		this.estacionamientoRepository = estacionamientoRepository;
 	}
-
+	
 	@Transactional
 	public Vehiculo ingresarVehiculo(Vehiculo vehiculo){ 
 		Date fechaEntrada = new Date();
@@ -38,48 +37,39 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 		validarPlacaExistenteEstacionamiento(vehiculo.getPlaca());
 		validacionDiasHabiles.validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO);
 		validarPuestosDisponibles(vehiculo.getTipoVehiculo());
-		estacionamientoRepository.registrarVehiculoDB(vehiculo);
-		List<Vehiculo> vehiculoDB = estacionamientoRepository.obtenerVehiculoPorPlacaDB(vehiculo.getPlaca());
-		return vehiculoDB.get(0); 
+		estacionamientoRepository.save(vehiculo);
+		return estacionamientoRepository.findVehicleByPlaca(vehiculo.getPlaca());
 	}  
-
+	
 	@Transactional
 	public List<VehiculoDTO> obtenerListaVehiculos(){
-		List<Vehiculo> listaVehiculosFiltrados = new ArrayList<>();
-		List<Vehiculo> listaVehiculos = estacionamientoRepository.obtenerVehiculosDB();
-		for (Vehiculo vehiculo : listaVehiculos) {
-			if(vehiculo.getTotalPagar() == 0  && vehiculo.getFechaSalida() == null) {
-				listaVehiculosFiltrados.add(vehiculo);
-			}		
-		}
-		return VehiculoDTO.vehiculoDTO(listaVehiculosFiltrados);
-	}
-	 
-	@Transactional
-	public Vehiculo registrarSalidaVehiculo(String placa) {
-		List<Vehiculo> listaVehiculosActivos = estacionamientoRepository.obtenerVehiculosDB();
-		for (Vehiculo vehiculo : listaVehiculosActivos) {
-			if (vehiculo.getPlaca().equals(placa) && vehiculo.getFechaSalida() == null) {
-				Date fechaSalida = new Date();
-				vehiculo.setFechaSalida(fechaSalida);
-				Vehiculo vehiculoParaSalir = new CalculoPrecioDomainImpl().calcularTiempoEstacionamiento(vehiculo);
-				estacionamientoRepository.actualizarVehiculoDB(vehiculoParaSalir);
-				return vehiculoParaSalir;
-			}
-		} 	 
-		throw new EstacionamientoExcepcion("Ese vehiculo No se encuentra en el parqueadero");
+		List<Vehiculo> listaVehiculos = estacionamientoRepository.findListVehicles();
+		return VehiculoDTO.vehiculoDTO(listaVehiculos);
 	}
 	
 	@Transactional
-	public List<Vehiculo> obtenerVehiculoByPlaca(String placa){
-		return estacionamientoRepository.obtenerVehiculoPorPlacaDB(placa);
+	public Vehiculo registrarSalidaVehiculo(String placa) {
+		Vehiculo vehiculo = estacionamientoRepository.findVehicleByPlaca(placa);
+		if(vehiculo == null) {
+			throw new EstacionamientoExcepcion("Ese vehiculo No se encuentra en el parqueadero");
+		}
+		Date fechaSalida = new Date();
+		vehiculo.setFechaSalida(fechaSalida);
+		Vehiculo vehiculoParaSalir = new CalculoPrecioDomainImpl().calcularTiempoEstacionamiento(vehiculo);
+		estacionamientoRepository.save(vehiculoParaSalir);
+		return vehiculoParaSalir;			
+	}
+	
+	@Transactional
+	public Vehiculo obtenerVehiculoByPlaca(String placa){
+		return estacionamientoRepository.findVehicleByPlaca(placa);
 	}
 	
 	public void validarPuestosDisponibles(String tipoVehiculo) {
-		List<Vehiculo> listaVehiculos = estacionamientoRepository.obtenerVehiculosDB();
+		List<Vehiculo> listaVehiculos = estacionamientoRepository.findListVehicles();
 		int cantidadVehiculos = 0;
 		for (Vehiculo vehiculo : listaVehiculos) {
-			if(vehiculo.getTipoVehiculo().equals(tipoVehiculo)  && vehiculo.getFechaSalida() == null) {
+			if(vehiculo.getTipoVehiculo().equals(tipoVehiculo)) {
 				cantidadVehiculos += 1;
 			}		
 		} 
@@ -90,9 +80,9 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	}  
 	
 	public void validarPlacaExistenteEstacionamiento(String placa) {
-		List<Vehiculo> listaVehiculosDB = estacionamientoRepository.obtenerVehiculosDB();
+		List<Vehiculo> listaVehiculosDB = estacionamientoRepository.findListVehicles();
 		for (Vehiculo vehiculoDB : listaVehiculosDB) {
-			if(vehiculoDB.getPlaca().equals(placa) && vehiculoDB.getFechaSalida() == null) {
+			if(vehiculoDB.getPlaca().equals(placa)) {
 				throw new EstacionamientoExcepcion("Ese vehiculo ya aparece activo en el estacionamiento");
 			}
 		}

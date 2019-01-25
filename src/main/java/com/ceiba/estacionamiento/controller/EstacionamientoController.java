@@ -26,7 +26,7 @@ public class EstacionamientoController {
 	public Response findAllVehicles() {	
 		return Response.ok(estacionamientoDomain.obtenerListaVehiculos()).build();	
 	}
-	 
+
 	@GET
 	@Path("/{placa}")
 	public Response findVehicle(@PathParam("placa") String placa) {
