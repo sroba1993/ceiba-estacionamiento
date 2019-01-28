@@ -247,5 +247,5 @@ public class EstacionamientoDomainImplTestUnitaria {
 		} catch (EstacionamientoExcepcion e) {
 			assertTrue(e.getMessage().equals("Ingrese el cilindraje del vehiculo"));
 		}	
-	}
+	} 
 }

@@ -101,7 +101,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	 
 	@Transactional
 	public void validarDatosIngresadosVehiculos(Vehiculo vehiculo) {
-		if(vehiculo.getTipoVehiculo().equals("") || vehiculo.getTipoVehiculo() == null) {
+		if(vehiculo.getTipoVehiculo().isEmpty()) {
 			throw new EstacionamientoExcepcion("Ingrese un tipo de vehiculo válido");
 		}	
 		else if(vehiculo.getCilindraje() == 0) {

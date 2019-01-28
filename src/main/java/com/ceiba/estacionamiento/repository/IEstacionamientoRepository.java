@@ -13,6 +13,6 @@ public interface IEstacionamientoRepository extends CrudRepository<Vehiculo, Lon
 	@Query("SELECT est FROM Vehiculo est WHERE est.fechaSalida is null")
     public List<Vehiculo> findListVehicles();
 	
-	@Query("SELECT est FROM Vehiculo est WHERE est.placa = :placa")
+	@Query("SELECT est FROM Vehiculo est WHERE est.placa = :placa and est.fechaSalida is null")
     public Vehiculo findVehicleByPlaca(@Param("placa") String placa);
 }
