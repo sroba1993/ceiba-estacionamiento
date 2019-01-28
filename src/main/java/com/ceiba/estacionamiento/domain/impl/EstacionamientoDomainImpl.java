@@ -21,7 +21,6 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	private static final int LUNES = Calendar.MONDAY; 
 	private static final int DOMINGO = Calendar.SUNDAY; 
 	private Estacionamiento estacionamiento = new Estacionamiento();
-	private ItinerarioDiasHabilesImpl validacionDiasHabiles = new ItinerarioDiasHabilesImpl();
 	
 	@Autowired
 	private final IEstacionamientoRepository estacionamientoRepository;
