@@ -10,4 +10,7 @@ public interface IEstacionamientoDomain {
 	List<VehiculoDTO> obtenerListaVehiculos();
 	Vehiculo obtenerVehiculoByPlaca(String placa);
 	Vehiculo registrarSalidaVehiculo(String placa);
+	void validarPlacaExistenteEstacionamiento(String placa);
+	void validarIngresoVehiculosByA(String placa , int primerDiaRestringido, int segundoDiaRestringido);
+	void validarPuestosDisponibles(String tipoVehiculo);
 }

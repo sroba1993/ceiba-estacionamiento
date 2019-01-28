@@ -28,14 +28,14 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	
 	public EstacionamientoDomainImpl(IEstacionamientoRepository estacionamientoRepository) {
 		this.estacionamientoRepository = estacionamientoRepository;
-	}
+	} 
 	
 	@Transactional
 	public Vehiculo ingresarVehiculo(Vehiculo vehiculo){ 
 		Date fechaEntrada = new Date();
 		vehiculo.setFechaEntrada(fechaEntrada); 
 		validarPlacaExistenteEstacionamiento(vehiculo.getPlaca());
-		validacionDiasHabiles.validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO);
+		validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO);
 		validarPuestosDisponibles(vehiculo.getTipoVehiculo());
 		estacionamientoRepository.save(vehiculo);
 		return estacionamientoRepository.findVehicleByPlaca(vehiculo.getPlaca());
@@ -65,20 +65,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 		return estacionamientoRepository.findVehicleByPlaca(placa);
 	}
 	
-	public void validarPuestosDisponibles(String tipoVehiculo) {
-		List<Vehiculo> listaVehiculos = estacionamientoRepository.findListVehicles();
-		int cantidadVehiculos = 0;
-		for (Vehiculo vehiculo : listaVehiculos) {
-			if(vehiculo.getTipoVehiculo().equals(tipoVehiculo)) {
-				cantidadVehiculos += 1;
-			}		
-		} 
-		if (!(cantidadVehiculos < estacionamiento.getCantEstacionamientoCarros() && tipoVehiculo.equals(CARRO)
-				|| (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO)))) {
-			throw new EstacionamientoExcepcion("Estacionamiento lleno");
-		}
-	}  
-	
+	@Transactional
 	public void validarPlacaExistenteEstacionamiento(String placa) {
 		List<Vehiculo> listaVehiculosDB = estacionamientoRepository.findListVehicles();
 		for (Vehiculo vehiculoDB : listaVehiculosDB) {
@@ -87,4 +74,28 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 			}
 		}
 	}
+	
+	@Transactional
+	public void validarIngresoVehiculosByA(String placa , int primerDiaRestringido, int segundoDiaRestringido) {
+		Calendar fechaActual = Calendar.getInstance();
+		int diaActual = fechaActual.get(Calendar.DAY_OF_WEEK);
+		if(placa.startsWith("a") && (diaActual == primerDiaRestringido || diaActual == segundoDiaRestringido)) {
+			throw new EstacionamientoExcepcion("No es un dia habil para este vehiculo");
+		}
+	} 
+	
+	@Transactional
+	public void validarPuestosDisponibles(String tipoVehiculo) {
+		List<Vehiculo> listaVehiculos = estacionamientoRepository.findListVehicles();
+		int cantidadVehiculos = 0;
+		for (Vehiculo vehiculo : listaVehiculos) {
+			if(vehiculo.getTipoVehiculo().equals(tipoVehiculo)) {
+				cantidadVehiculos += 1;
+			}		
+		} 
+		if (!((cantidadVehiculos < estacionamiento.getCantEstacionamientoCarros() && tipoVehiculo.equals(CARRO))
+				|| (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO)))) {
+			throw new EstacionamientoExcepcion("Estacionamiento lleno");
+		}
+	}  
 }

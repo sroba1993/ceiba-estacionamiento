@@ -21,7 +21,7 @@ public class EstacionamientoController {
 	
 	@Autowired 
 	private IEstacionamientoDomain estacionamientoDomain;
-	
+	 
 	@GET
 	public Response findAllVehicles() {	
 		return Response.ok(estacionamientoDomain.obtenerListaVehiculos()).build();	

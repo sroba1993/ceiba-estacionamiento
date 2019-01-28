@@ -49,6 +49,14 @@ public class Vehiculo {
 		this.fechaSalida = fechaSalida;
 		this.totalPagar = totalPagar;
 	}
+	
+	public int getIdVehiculo() {
+		return idVehiculo;
+	}
+
+	public void setIdVehiculo(int idVehiculo) {
+		this.idVehiculo = idVehiculo;
+	}
 
 	public String getTipoVehiculo() {
 		return tipoVehiculo;
@@ -96,5 +104,5 @@ public class Vehiculo {
 
 	public void setTotalPagar(int totalPagar) {
 		this.totalPagar = totalPagar;
-	}
+	}	
 }

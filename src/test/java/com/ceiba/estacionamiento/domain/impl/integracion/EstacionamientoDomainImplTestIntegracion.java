@@ -5,8 +5,10 @@ import static org.junit.Assert.assertTrue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import org.aspectj.lang.annotation.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +19,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.ceiba.estacionamiento.EstacionamientoSpringApplication;
 import com.ceiba.estacionamiento.controller.error.EstacionamientoExcepcion;
 import com.ceiba.estacionamiento.domain.IEstacionamientoDomain;
@@ -25,12 +26,10 @@ import com.ceiba.estacionamiento.domain.impl.EstacionamientoDomainImpl;
 import com.ceiba.estacionamiento.dto.VehiculoDTO;
 import com.ceiba.estacionamiento.model.Vehiculo;
 import com.ceiba.estacionamiento.repository.IEstacionamientoRepository;
-import com.ceiba.estacionamiento.repository.impl.EstacionamientoRepositoryImpl;
-import com.ceiba.estacionamiento.util.HibernateUtil;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EstacionamientoSpringApplication.class)
-@Transactional
 public class EstacionamientoDomainImplTestIntegracion {
 	
 	final static String PLACA_MOTO = "lwq12t";
@@ -48,16 +47,15 @@ public class EstacionamientoDomainImplTestIntegracion {
 	@Before
 	public void setUp() {
 		estacionamientoDomain = new EstacionamientoDomainImpl(estacionamientoRepository);
-	}
-	/*
+	} 
+	
+	
 	@Test
-	@Rollback(true)
 	public void validarIngresoMotoBasesDatosVacia() {
 		correrValidacionIngresoVehiculosEstacionamientoVacio(TIPO_VEHICULO_MOTO, PLACA_MOTO);
 	}
 	
 	@Test
-	@Rollback(true)
 	public void validarIngresoCarroBasesDatosVacia() {
 		correrValidacionIngresoVehiculosEstacionamientoVacio(TIPO_VEHICULO_CARRO, PLACA_CARRO);
 	}
@@ -66,144 +64,96 @@ public class EstacionamientoDomainImplTestIntegracion {
 		vehiculoTest.setPlaca(placa);
 		vehiculoTest.setTipoVehiculo(tipovehiculo);
 		Vehiculo vehiculoRegistrado = estacionamientoDomain.ingresarVehiculo(vehiculoTest);
-		assertTrue(vehiculoRegistrado.equals(vehiculoTest));
-	}
-	*/
-	@Test
-	public void validarIngresoMotoBasesDatosLlena() {
-		Vehiculo vehiculo = new Vehiculo();
-		for (int i = 0; i < 10; i++) {
-			vehiculo.setPlaca("test");
-			vehiculo.setTipoVehiculo(TIPO_VEHICULO_MOTO);
-			estacionamientoRepository.registrarVehiculoDB(vehiculo);
-		}
-		correrValidacionIngresoVehiculosEstacionamientoLleno(PLACA_MOTO, TIPO_VEHICULO_MOTO);
+		estacionamientoRepository.delete(vehiculoTest);
+		assertTrue(vehiculoRegistrado.getPlaca().equals(vehiculoTest.getPlaca()));	
 	}
 	/*
 	@Test
+	public void validarIngresoMotoBasesDatosLlena() {
+		int contador = 100000;
+		for (int i = 0; i < 10; i++) {
+			vehiculoTest.setIdVehiculo(contador);
+			vehiculoTest.setPlaca(PLACA_MOTO + contador);
+			vehiculoTest.setTipoVehiculo(TIPO_VEHICULO_MOTO);
+			estacionamientoRepository.save(vehiculoTest);
+			contador += 1;
+		}
+		correrValidacionIngresoVehiculosEstacionamientoLleno(PLACA_MOTO, TIPO_VEHICULO_CARRO);
+	}
+	
+	@Test
 	public void validarIngresoCarroBasesDatosLlena() {
-		Vehiculo vehiculo = new Vehiculo();
+		int contador = 200000;
 		for (int i = 0; i < 20; i++) {
-			vehiculo.setPlaca("hgl234");
-			vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
-			estacionamientoRepository.registrarVehiculoDB(vehiculo);
+			vehiculoTest.setIdVehiculo(contador);
+			vehiculoTest.setPlaca(PLACA_CARRO + contador);
+			vehiculoTest.setTipoVehiculo(TIPO_VEHICULO_CARRO);
+			estacionamientoRepository.save(vehiculoTest);
+			contador += 1;
 		}
 		correrValidacionIngresoVehiculosEstacionamientoLleno(PLACA_CARRO, TIPO_VEHICULO_CARRO);
 	}
-	*/
+	
 	public void correrValidacionIngresoVehiculosEstacionamientoLleno(String placa, String tipovehiculo) {
+		Vehiculo vehiculo = new Vehiculo();
+		vehiculo.setPlaca("m");
+		vehiculo.setTipoVehiculo(tipovehiculo);
 		try {
-			vehiculoTest.setPlaca(placa);
-			vehiculoTest.setTipoVehiculo(tipovehiculo);
-			estacionamientoDomain.ingresarVehiculo(vehiculoTest);
+			estacionamientoDomain.ingresarVehiculo(vehiculo);
 		} catch (RuntimeException e) {
+			estacionamientoRepository.deleteAll();
 			assertTrue(e.getMessage().equals("Estacionamiento lleno"));
 		}
 	}
-	
-	/*
-	
-	@Test
-	public void validarIngresoVehiculoDiaNoHabilplacasA() {
-		String respuestaIdeal = "No es un día hábil para ese vehiculo";
-		correrValidacionIngresoVehiculos(respuestaIdeal, "", TIPO_VEHICULO_CARRO, PLACA_BY_A);
-	}
-	
-	
-	@Test
-	public void validarPuestosDisponiblesMotos() {
-		Boolean respuestEsperadaEstacionamientoMotos = estacionamientoDomain.validarPuestosDisponibles(TIPO_VEHICULO_MOTO);
-		assertTrue(respuestEsperadaEstacionamientoMotos);
-	}
-	
-	@Test
-	public void validarPuestosDisponiblesCarros() {
-		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarPuestosDisponibles(TIPO_VEHICULO_CARRO);
-		assertTrue(respuestEsperadaEstacionamientoCarros);
-	}
-	
-	@Test
-	public void validarCantPuestosMotos() {
-		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarCantPuestosVehiculos(5, TIPO_VEHICULO_MOTO);
-		assertTrue(respuestEsperadaEstacionamientoCarros);
-	}
-	
-	@Test
-	public void validarCantPuestosCarros() {
-		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarCantPuestosVehiculos(15, TIPO_VEHICULO_CARRO);
-		assertTrue(respuestEsperadaEstacionamientoCarros);
-	}
-	
-	@Test
-	public void validarIngresoVehiculosByA() {
-		Boolean respuestEsperadaEstacionamientoCarros = estacionamientoDomain.validarIngresoVehiculosByA(PLACA_BY_A,Calendar.SATURDAY,Calendar.MONDAY);
-		assertTrue(respuestEsperadaEstacionamientoCarros);
-	}
-	
-	@Test
-	public void validarObtencionListaVehiculos() {
-		List<Vehiculo> listaVehiculos = nuevoRepositorio.obtenerVehiculosDB();		
-		List<VehiculoDTO> listaVehiculosDTOs = estacionamientoDomain.obtenerListaVehiculos();
-		int apuntador = 0;
-		for (Vehiculo vehiculo : listaVehiculos) {
-				VehiculoDTO vehiculoDTO =listaVehiculosDTOs.get(apuntador);
-			assertTrue(vehiculo.getPlaca().equals(vehiculoDTO.getPlaca()));
-			assertTrue(vehiculo.getTipoVehiculo().equals(vehiculoDTO.getTipoVehiculo()));
-			assertTrue(vehiculo.getFechaEntrada().equals(vehiculoDTO.getFechaEntrada()));
-			apuntador += 1;
-		}
-	} 
+	*/
 	  
 	@Test
-	public void validarObtencionVehiculoByPlaca() { 
-		List<Vehiculo> listaVehiculoRepository = nuevoRepositorio.obtenerVehiculoPorPlacaDB(PLACA_MOTO);
-		List<Vehiculo> listaVehiculoEsperado = estacionamientoDomain.obtenerVehiculoByPlaca(PLACA_MOTO);
-		Vehiculo vehiculoRepository = listaVehiculoRepository.get(0);
-		Vehiculo vehiculoEsperado = listaVehiculoEsperado.get(0);
-		assertTrue(vehiculoRepository.getPlaca().equals(vehiculoEsperado.getPlaca()));
-		assertTrue(vehiculoRepository.getTipoVehiculo().equals(vehiculoEsperado.getTipoVehiculo()));
-		assertTrue(vehiculoRepository.getFechaEntrada().equals(vehiculoEsperado.getFechaEntrada()));
+	public void validarPlacasByAdiaNoHabil() { 
+		Calendar fechaActual = Calendar.getInstance();
+		int diaActual = fechaActual.get(Calendar.DAY_OF_WEEK);
+		try {
+			estacionamientoDomain.validarIngresoVehiculosByA(PLACA_BY_A, diaActual, diaActual);
+		} catch (RuntimeException e) {
+			assertTrue(e.getMessage().equals("No es un dia habil para este vehiculo"));
+		}
 	}
-	 
+	/*
 	@Test
-	public void probarValidacionRegistroSalidaVehiculoPlacaNoExistente() {
-		//vehiculo nulo
-		Vehiculo vehiculoEsperado = estacionamientoDomain.registrarSalidaVehiculo(PLACA_CARRO);
-		assertFalse(vehiculo.equals(vehiculoEsperado));
+	public void validarPlacasRepetidas() {
+		vehiculoTest.setPlaca(PLACA_CARRO);
+		vehiculoTest.setTipoVehiculo(PLACA_CARRO);
+		estacionamientoDomain.ingresarVehiculo(vehiculoTest);
+		try {
+			estacionamientoDomain.validarPlacaExistenteEstacionamiento(PLACA_CARRO);
+		} catch (RuntimeException e) {
+			estacionamientoRepository.delete(vehiculoTest);
+			assertTrue(e.getMessage().equals("Ese vehiculo ya aparece activo en el estacionamiento"));
+		}
 	}
+	*/
 	
 	@Test
 	public void probarValidacionRegistroSalidaCarro() {
 		//En la base de datos registrar este vehiculo
-		vehiculo.setPlaca("eds123");
-		vehiculo.setTipoVehiculo("carro");
-		try {
-			vehiculo.setFechaEntrada(format.parse("2019-01-18 14:57:38"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		correrTestResgistroSalidaVehiculos("eds123", vehiculo);
+		vehiculoTest.setPlaca("eds123");
+		vehiculoTest.setTipoVehiculo("carro");
+		correrTestResgistroSalidaVehiculos("eds123", vehiculoTest);
 	}
 	
 	@Test
 	public void probarValidacionRegistroSalidaMoto() {
 		//En la base de datos registrar este vehiculo
-		vehiculo.setPlaca("mxl34j");
-		vehiculo.setTipoVehiculo("moto");
-		try {
-			vehiculo.setFechaEntrada(format.parse("2019-01-18 14:58:40"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		correrTestResgistroSalidaVehiculos("mxl34j", vehiculo);
+		vehiculoTest.setPlaca("mxl34j");
+		vehiculoTest.setTipoVehiculo("moto");
+		correrTestResgistroSalidaVehiculos("mxl34j", vehiculoTest);
 	}
-				
+			
 	public void correrTestResgistroSalidaVehiculos(String placaAverificar, Vehiculo vehiculoModelo) { 
+		estacionamientoDomain.ingresarVehiculo(vehiculoModelo);
 		Vehiculo vehiculoEsperado = estacionamientoDomain.registrarSalidaVehiculo(placaAverificar);
+		estacionamientoRepository.delete(vehiculoModelo);
 		assertTrue(vehiculoModelo.getPlaca().equals(vehiculoEsperado.getPlaca()));
 	}
-	*/
+
 }
 
