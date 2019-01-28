@@ -33,6 +33,7 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 	public Vehiculo ingresarVehiculo(Vehiculo vehiculo){ 
 		Date fechaEntrada = new Date();
 		vehiculo.setFechaEntrada(fechaEntrada); 
+		validarDatosIngresadosVehiculos(vehiculo);
 		validarPlacaExistenteEstacionamiento(vehiculo.getPlaca());
 		validarIngresoVehiculosByA(vehiculo.getPlaca(),LUNES,DOMINGO);
 		validarPuestosDisponibles(vehiculo.getTipoVehiculo());
@@ -96,5 +97,15 @@ public class EstacionamientoDomainImpl implements IEstacionamientoDomain {
 				|| (cantidadVehiculos < estacionamiento.getCantEstacionamientoMotos() && tipoVehiculo.equals(MOTO)))) {
 			throw new EstacionamientoExcepcion("Estacionamiento lleno");
 		}
-	}  
-}
+	}   
+	 
+	@Transactional
+	public void validarDatosIngresadosVehiculos(Vehiculo vehiculo) {
+		if(vehiculo.getTipoVehiculo() == "") {
+			throw new EstacionamientoExcepcion("Ingrese un tipo de vehiculo válido");
+		}	
+		else if(vehiculo.getCilindraje() == 0) {
+			throw new EstacionamientoExcepcion("Ingrese el cilindraje del vehiculo");
+		}
+	}
+} 

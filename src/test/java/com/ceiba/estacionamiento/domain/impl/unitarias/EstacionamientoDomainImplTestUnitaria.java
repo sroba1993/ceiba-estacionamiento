@@ -47,17 +47,18 @@ public class EstacionamientoDomainImplTestUnitaria {
 	
 	@Test
 	public void validarIngresoMoto() {
-		correrValidacionIngresoVehiculos(TIPO_VEHICULO_MOTO, PLACA_MOTO);
+		correrValidacionIngresoVehiculos(TIPO_VEHICULO_MOTO, PLACA_MOTO, 125);
 	}
 	
 	@Test
 	public void validarIngresoCarro() {
-		correrValidacionIngresoVehiculos(TIPO_VEHICULO_CARRO, PLACA_CARRO);
+		correrValidacionIngresoVehiculos(TIPO_VEHICULO_CARRO, PLACA_CARRO, 1200);
 	}
 	
-	public void correrValidacionIngresoVehiculos(String tipovehiculo, String placa) {
+	public void correrValidacionIngresoVehiculos(String tipovehiculo, String placa, int cilindraje) {
 		vehiculo.setPlaca(placa);
 		vehiculo.setTipoVehiculo(tipovehiculo);
+		vehiculo.setCilindraje(cilindraje);
 		when(estacionamientoRepository.findVehicleByPlaca(placa)).thenReturn(vehiculo);
 		Vehiculo vehiculoIngresado = estacionamientoDomain.ingresarVehiculo(vehiculo);
 		assertTrue(vehiculoIngresado.equals(vehiculo));
@@ -72,7 +73,7 @@ public class EstacionamientoDomainImplTestUnitaria {
 			vehiculoTest.setTipoVehiculo(TIPO_VEHICULO_CARRO);
 			listaLlena.add(vehiculoTest);
 		}
-		correrValidacionIngresoVehiculosEstacionamientoLleno(TIPO_VEHICULO_CARRO, PLACA_CARRO, listaLlena);
+		correrValidacionIngresoVehiculosEstacionamientoLleno(TIPO_VEHICULO_CARRO, PLACA_CARRO, 1300, listaLlena);
 	}
 	
 	@Test
@@ -84,12 +85,13 @@ public class EstacionamientoDomainImplTestUnitaria {
 			vehiculoTest.setTipoVehiculo(TIPO_VEHICULO_MOTO);
 			listaLlena.add(vehiculoTest);
 		}
-		correrValidacionIngresoVehiculosEstacionamientoLleno(TIPO_VEHICULO_MOTO, PLACA_MOTO, listaLlena);
+		correrValidacionIngresoVehiculosEstacionamientoLleno(TIPO_VEHICULO_MOTO, PLACA_MOTO,650 , listaLlena);
 	}
 	
-	public void correrValidacionIngresoVehiculosEstacionamientoLleno(String tipovehiculo, String placa, List<Vehiculo> listaVehiculos) {
+	public void correrValidacionIngresoVehiculosEstacionamientoLleno(String tipovehiculo, String placa, int cilindraje, List<Vehiculo> listaVehiculos) {
 		vehiculo.setPlaca(placa);
 		vehiculo.setTipoVehiculo(tipovehiculo);
+		vehiculo.setCilindraje(cilindraje);
 		when(estacionamientoRepository.findListVehicles()).thenReturn(listaVehiculos);
 		try {
 			estacionamientoDomain.ingresarVehiculo(vehiculo);
@@ -224,4 +226,26 @@ public class EstacionamientoDomainImplTestUnitaria {
 		assertTrue(vehiculoModelo.getPlaca().equals(vehiculoEsperado.getPlaca()));
 	}
 	
+	@Test
+	public void probarDatosIncompletoFaltaCampoTipoVehiculo() {
+		vehiculo.setPlaca(PLACA_CARRO);
+		vehiculo.setTipoVehiculo("");
+		vehiculo.setCilindraje(1200);
+		try {
+			estacionamientoDomain.validarDatosIngresadosVehiculos(vehiculo);
+		} catch (EstacionamientoExcepcion e) {
+			assertTrue(e.getMessage().equals("Ingrese un tipo de vehiculo válido"));
+		}	
+	}
+	
+	@Test
+	public void probarDatosIncompletosFaltaCilindraje() {
+		vehiculo.setPlaca(PLACA_CARRO);
+		vehiculo.setTipoVehiculo(TIPO_VEHICULO_CARRO);
+		try {
+			estacionamientoDomain.validarDatosIngresadosVehiculos(vehiculo);
+		} catch (EstacionamientoExcepcion e) {
+			assertTrue(e.getMessage().equals("Ingrese el cilindraje del vehiculo"));
+		}	
+	}
 }
