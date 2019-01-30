@@ -75,6 +75,22 @@ public class CalculoPrecioDomainImplTestUnitaria {
 	}
 	
 	@Test
+	public void verificarCalsificacionVehiculoCarro() {
+		int precioParqueoEsperado = 11_000;
+		vehiculo.setTipoVehiculo(CARRO);
+		Vehiculo vehiculoConPrecio = nuevoCobro.clasificarTipoVehiculo(vehiculo, 3, 1);
+		assertEquals(vehiculoConPrecio.getTotalPagar(),precioParqueoEsperado);
+	}
+	
+	@Test
+	public void verificarCalsificacionVehiculoMoto() {
+		int precioParqueoEsperado = 13_000;
+		vehiculo.setTipoVehiculo(MOTO);
+		Vehiculo vehiculoConPrecio = nuevoCobro.clasificarTipoVehiculo(vehiculo, 2, 3);
+		assertEquals(vehiculoConPrecio.getTotalPagar(),precioParqueoEsperado);
+	}
+	
+	@Test
 	public void calcularPrecioParqueoCarroHoras() {
 		int precioParqueoEsperado = 3_000;
 		int precioParqueoCalculado = nuevoCobro.calcularPrecioCarro(3,0);

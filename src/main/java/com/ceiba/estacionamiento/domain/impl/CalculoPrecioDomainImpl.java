@@ -32,7 +32,10 @@ public class CalculoPrecioDomainImpl {
 		else if(minutos > 0) {
 			horas += 1;
 		}
-
+		return clasificarTipoVehiculo(vehiculo, horas, dias);
+	}
+	
+	public Vehiculo clasificarTipoVehiculo(Vehiculo vehiculo, int horas, int dias ) {
 		if(vehiculo.getTipoVehiculo().equals(CARRO)) {
 			int totalApagar = calcularPrecioCarro(horas, dias);
 			vehiculo.setTotalPagar(totalApagar);
